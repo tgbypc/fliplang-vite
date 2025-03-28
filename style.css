@@ -1,0 +1,48 @@
+/* Kart dış çerçevesi */
+.perspective {
+  perspective: 1000px;
+}
+
+/* Kartın iç yapısı */
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+/* Döndürme class'ı */
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Ön ve arka yüzler */
+.front,
+.back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  padding: 1rem;
+
+}
+
+/* Ön yüz */
+.front {
+  background-color: white;
+  color: #4F46E5;
+}
+
+/* Arka yüz */
+.back {
+  background-color: #F59E0B;
+  color: white;
+  transform: rotateY(180deg);
+}
