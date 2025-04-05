@@ -1,4 +1,6 @@
 import { cards } from "./data.js";
+let reviewedToday = 0;
+const progressCount = document.getElementById("progress-count");
 
 if (!localStorage.getItem("cards")) {
   localStorage.setItem("cards", JSON.stringify(cards));
@@ -16,7 +18,7 @@ todaysCards.forEach((card) => {
 const app = document.getElementById("app");
 app.classList.add("flex", "flex-wrap", "justify-center", "gap-6");
 
-cards.forEach((card) => {
+todaysCards.forEach((card) => {
   const wrapper = document.createElement("div");
   wrapper.className = "w-64 h-40 perspective";
 
@@ -56,11 +58,15 @@ cards.forEach((card) => {
 
   knowBtn.addEventListener("click", (e) => {
     e.stopPropagation();
+    reviewedToday++;
+    progressCount.textContent = reviewedToday;
     console.log(`✅ "${card.front}" kelimesi BİLİNİYOR olarak işaretlendi.`);
   });
 
   dontKnowBtn.addEventListener("click", (e) => {
     e.stopPropagation(); 
+    reviewedToday++;
+    progressCount.textContent = reviewedToday;
     inner.classList.add("rotate-y-180");
     console.log(`❌ "${card.front}" kelimesi BİLİNMİYOR olarak işaretlendi.`);
   });
