@@ -1,6 +1,10 @@
 import { cards } from "./data.js";
+
 let reviewedToday = 0;
 const progressCount = document.getElementById("progress-count");
+const progressTotal = document.getElementById("progress-total");
+const progressBar = document.getElementById("progress-bar");
+const congratsMessage = document.getElementById("congrats-message");
 
 if (!localStorage.getItem("cards")) {
   localStorage.setItem("cards", JSON.stringify(cards));
@@ -11,9 +15,27 @@ let storedCards = JSON.parse(localStorage.getItem("cards"));
 // Tarih
 const today = new Date().toISOString().split("T")[0];
 const todaysCards = storedCards.filter(card => card.nextReview <= today);
-todaysCards.forEach((card) => {
 
-});
+progressTotal.textContent = todaysCards.length;
+
+// Progress Bar güncelleme fonksiyonu
+function updateProgress() {
+  progressCount.textContent = reviewedToday;
+  const percent = (reviewedToday / todaysCards.length) * 100;
+  progressBar.style.width = `${percent}%`;
+
+  if (percent < 50) {
+    progressBar.className = "bg-red-500 h-4 transition-all duration-500";
+  } else if (percent < 80) {
+    progressBar.className = "bg-yellow-400 h-4 transition-all duration-500";
+  } else {
+    progressBar.className = "bg-green-500 h-4 transition-all duration-500";
+  }
+
+  if (percent === 100) {
+    congratsMessage.classList.remove("hidden");
+  }
+}
 
 const app = document.getElementById("app");
 app.classList.add("flex", "flex-wrap", "justify-center", "gap-6");
@@ -46,77 +68,27 @@ todaysCards.forEach((card) => {
   wrapper.appendChild(inner);
   app.appendChild(wrapper);
 
-  // ✅ Flip işlemi 
+  // Kart Dönme
   wrapper.addEventListener("click", () => {
     inner.classList.toggle("rotate-y-180");
   });
 
-  // Butonlara erisim (event delegation olmadan)
-
+  // Butonlar
   const knowBtn = front.querySelector(".know-btn");
   const dontKnowBtn = front.querySelector(".dont-know-btn");
 
   knowBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     reviewedToday++;
-    progressCount.textContent = reviewedToday;
+    updateProgress();
     console.log(`✅ "${card.front}" kelimesi BİLİNİYOR olarak işaretlendi.`);
   });
 
   dontKnowBtn.addEventListener("click", (e) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     reviewedToday++;
-    progressCount.textContent = reviewedToday;
+    updateProgress();
     inner.classList.add("rotate-y-180");
     console.log(`❌ "${card.front}" kelimesi BİLİNMİYOR olarak işaretlendi.`);
   });
 });
-
-// Biliyorum secildiyse kutuyu artir
-function handleKnow(cardId) {
-  const today = new Date();
-
-  storedCards = storedCards.map((card) => {
-    if (card.id === cardId) {
-      const newBox = Math.min(card.box + 1, 4);
-      let daysToAdd = 0;
-
-      if (newBox === 1) daysToAdd = 0;
-      if (newBox === 2) daysToAdd = 3;
-      if (newBox === 3) daysToAdd = 7;
-      if (newBox === 4) daysToAdd = 30;
-
-      const nextDate = new Date(today);
-      nextDate.setDate(today.getDate() + daysToAdd);
-
-      return {
-        ...card,
-        box: Math.min(card.box + 1, 4), // max box: 4
-        nextReview: nextDate.toISOString().split("T")[0],
-      };
-    }
-    return card;
-  });
-
-  localStorage.setItem("cards", JSON.stringify(storedCards));
-}
- 
-// "Bilmiyorum" secildeyse kutuya geri don
-function handleDontKnow(cardId) {
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate()+ 1); // Bugune bir gun ekle!
-
-  const nextReviewDate = tomorrow.toISOString().split("T")[0];
-
-  storedCards = storedCards.map((card) => {
-    if (card.id === cardId) {
-      return {
-        ...card, 
-        box: 1,
-        nextReview: nextReviewDate
-      };
-    }
-    return card;
-  });
-  localStorage.setItem("cards", JSON.stringify(storedCards));
-}
