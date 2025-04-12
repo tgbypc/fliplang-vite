@@ -5,81 +5,92 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FlipLang</title>
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css" />
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#4F46E5',
-            accent: '#F59E0B',
+    window.tailwind = {
+      config: {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#4F46E5",
+              accent: "#F59E0B",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
           },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          }
-        }
-      }
-    }
+        },
+      },
+    };
   </script>
-
   <link rel="icon" href="assets/images/favicon.ico" />
 </head>
 
-<body class="bg-gray-100 text-gray-900 font-sans min-h-screen flex flex-col">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
 
   <!-- HEADER -->
   <header class="p-4 bg-white shadow flex justify-between items-center">
     <h1 class="text-xl font-bold text-primary">📚 FlipLang</h1>
-    <button id="themeToggle" class="text-sm bg-primary text-white px-3 py-1 rounded hover:bg-indigo-700 transition">
-      🌗 Tema
-    </button>
+    <button id="themeToggle"
+      class="text-sm bg-primary text-white px-3 py-1 rounded hover:bg-indigo-700 transition">🌗 Tema</button>
   </header>
 
   <!-- MAIN -->
   <main class="flex-1 p-8 flex flex-col items-center justify-center">
-
     <h2 class="text-2xl font-bold text-primary mb-8">Ne yapmak istersin?</h2>
 
-    <div class="grid grid-cols-2 gap-6 w-full max-w-2xl">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-2xl">
 
-      <!-- Bugünkü Tekrar -->
+      <!-- Günlük Tekrar -->
       <div onclick="location.href='review.html'"
-        class="group bg-white p-6 rounded-xl shadow hover:shadow-lg cursor-pointer flex flex-col items-center justify-center transition transform hover:scale-105">
-        <div class="text-4xl mb-2">🔁</div>
-        <h3 class="text-lg font-semibold text-primary mb-1">Bugünkü Tekrar</h3>
-        <p class="text-gray-500 text-sm group-hover:text-primary">Günlük kelimelerini tekrar et</p>
+        class="group p-6 rounded-xl shadow cursor-pointer bg-white hover:bg-primary transition transform hover:scale-105">
+        <h3 class="text-lg font-semibold text-primary mb-1 group-hover:text-white flex items-center gap-2">
+          🔁 Bugünkü Tekrar
+        </h3>
+        <p class="text-gray-500 text-sm group-hover:text-gray-200">
+          Günlük kelimelerini tekrar et
+        </p>
       </div>
 
-      <!-- Planlı Tekrar -->
+      <!-- Planlı Tekrarlar -->
       <div onclick="location.href='plans.html'"
-        class="group bg-white p-6 rounded-xl shadow hover:shadow-lg cursor-pointer flex flex-col items-center justify-center transition transform hover:scale-105">
-        <div class="text-4xl mb-2">🗓️</div>
-        <h3 class="text-lg font-semibold text-primary mb-1">Planlı Tekrarlar</h3>
-        <p class="text-gray-500 text-sm group-hover:text-primary">3-7-30 gün tekrar planı</p>
+        class="group p-6 rounded-xl shadow cursor-pointer bg-white hover:bg-primary transition transform hover:scale-105">
+        <h3 class="text-lg font-semibold text-primary mb-1 group-hover:text-white flex items-center gap-2">
+          🗓️ Planlı Tekrarlar
+        </h3>
+        <p class="text-gray-500 text-sm group-hover:text-gray-200">
+          3-7-30 gün tekrar planı
+        </p>
       </div>
 
-      <!-- Yeni Kelime -->
+      <!-- Yeni Kelime Ekle -->
       <div onclick="location.href='add.html'"
-        class="group bg-white p-6 rounded-xl shadow hover:shadow-lg cursor-pointer flex flex-col items-center justify-center transition transform hover:scale-105">
-        <div class="text-4xl mb-2">➕</div>
-        <h3 class="text-lg font-semibold text-primary mb-1">Yeni Kelime Ekle</h3>
-        <p class="text-gray-500 text-sm group-hover:text-primary">Kendi kelimelerini oluştur</p>
+        class="group p-6 rounded-xl shadow cursor-pointer bg-white hover:bg-primary transition transform hover:scale-105">
+        <h3 class="text-lg font-semibold text-primary mb-1 group-hover:text-white flex items-center gap-2">
+          ➕ Yeni Kelime Ekle
+        </h3>
+        <p class="text-gray-500 text-sm group-hover:text-gray-200">
+          Kendi kelimelerini oluştur
+        </p>
       </div>
 
       <!-- Kartlarım -->
       <div onclick="location.href='cards.html'"
-        class="group bg-white p-6 rounded-xl shadow hover:shadow-lg cursor-pointer flex flex-col items-center justify-center transition transform hover:scale-105">
-        <div class="text-4xl mb-2">📚</div>
-        <h3 class="text-lg font-semibold text-primary mb-1">Kartlarım</h3>
-        <p class="text-gray-500 text-sm group-hover:text-primary">Tüm kelimelerini görüntüle</p>
+        class="group p-6 rounded-xl shadow cursor-pointer bg-white hover:bg-primary transition transform hover:scale-105">
+        <h3 class="text-lg font-semibold text-primary mb-1 group-hover:text-white flex items-center gap-2">
+          📚 Kartlarım
+        </h3>
+        <p class="text-gray-500 text-sm group-hover:text-gray-200">
+          Tüm kelimelerini görüntüle
+        </p>
       </div>
 
     </div>
-
   </main>
 
   <!-- FOOTER -->
@@ -87,6 +98,7 @@
     © 2025 FlipLang. Tüm hakları saklıdır.
   </footer>
 
+  <script type="module" src="js/app.js"></script>
 </body>
 
 </html>

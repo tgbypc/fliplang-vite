@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bugünkü Tekrar | FlipLang</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100 text-gray-900 font-sans min-h-screen flex flex-col">
+    <header class="p-4 bg-white shadow flex justify-between items-center">
+      <h1 class="text-xl font-bold text-primary">📚 FlipLang</h1>
+      <a href="index.html" class="text-sm text-primary hover:underline"
+        >← Ana Sayfa</a
+      >
+    </header>
+
+    <main class="flex-1 p-4">
+      <section id="progress" class="text-center py-6 w-full max-w-md mx-auto">
+        <h2 class="text-lg font-semibold text-gray-800 mb-3">
+          Bugünlük İlerleme
+        </h2>
+
+        <div class="w-full bg-gray-300 rounded-full h-4 overflow-hidden">
+          <div
+            id="progress-bar"
+            class="bg-red-500 h-4 w-0 transition-all duration-500"
+          ></div>
+        </div>
+
+        <p class="mt-2 text-sm text-gray-700">
+          <span id="progress-count">0</span> /
+          <span id="progress-total">0</span> kelime tekrar edildi
+        </p>
+
+        <p
+          id="congrats-message"
+          class="mt-4 text-green-600 text-sm font-semibold hidden"
+        >
+          🎉 Tebrikler! Bugünkü tekrarlarını tamamladın!
+        </p>
+      </section>
+
+      <section id="app" class="flex flex-wrap justify-center gap-6"></section>
+    </main>
+
+    <footer class="p-4 text-center text-sm text-gray-500">
+      © 2025 FlipLang. Tüm hakları saklıdır.
+    </footer>
+
+    <script type="module" src="js/review.js"></script>
+  </body>
+</html>
