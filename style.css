@@ -46,3 +46,33 @@
   color: white;
   transform: rotateY(180deg);
 }
+
+/* Sayfa açılış animasyonu */
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+/* İkon zıplama efekti */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.group-hover\:animate-bounce:hover span {
+  animation: bounce 0.4s;
+}
