@@ -12,5 +12,5 @@ export const cards = [
     back: "Hoscakal",
     box: 1,
     nextReview: new Date().toISOString().split("T")[0]
-  }
+  },
 ];

@@ -1,3 +1,4 @@
+<!-- plans.html -->
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -9,56 +10,57 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
-
-  <!-- HEADER -->
+<body class="bg-gray-100 text-gray-900 font-sans min-h-screen flex flex-col">
   <header class="p-4 bg-white shadow flex justify-between items-center">
     <h1 class="text-xl font-bold text-primary">📚 FlipLang</h1>
     <a href="index.html" class="text-sm text-primary hover:underline">← Ana Sayfa</a>
   </header>
 
-  <!-- MAIN -->
-  <main class="flex-1 p-8 flex flex-col items-center justify-center opacity-0 translate-y-5 animate-fade-in-up">
-
+  <main class="flex-1 p-8 flex flex-col items-center justify-center">
     <h2 class="text-2xl font-bold text-primary mb-8">Planlı Tekrarlar</h2>
 
     <div class="flex flex-col gap-4 w-full max-w-md">
-      <!-- 3 Günlük Tekrar -->
-<div onclick="location.href='plans-3days.html'"
-class="group p-6 rounded-xl shadow cursor-pointer bg-orange-400 hover:bg-orange-500 transition transform hover:scale-105 hover:-translate-y-1 hover:shadow-xl text-white">
-<h3 class="text-lg font-semibold mb-1 group-hover:text-white flex items-center gap-2">
-  <span class="group-hover:animate-bounce">📅</span> 3 Günlük Tekrar
-</h3>
-<p class="text-gray-300 text-sm group-hover:text-white">3 gün sonra tekrar edilecek kelimeler.</p>
-</div>
+      <div onclick="loadPlannedReview(3)"
+        class="group p-6 rounded-xl shadow cursor-pointer bg-orange-400 hover:bg-orange-500 transition transform hover:scale-105 text-white">
+        <h3 class="text-lg font-semibold mb-1">📅 3 Günlük Tekrar</h3>
+        <p class="text-gray-300 text-sm group-hover:text-white">3 gün sonra tekrar etmen gereken kelimeler.</p>
+      </div>
 
-<!-- 7 Günlük Tekrar -->
-<div onclick="location.href='plans-7days.html'"
-class="group p-6 rounded-xl shadow cursor-pointer bg-green-400 hover:bg-green-500 transition transform hover:scale-105 hover:-translate-y-1 hover:shadow-xl text-white">
-<h3 class="text-lg font-semibold mb-1 group-hover:text-white flex items-center gap-2">
-  <span class="group-hover:animate-bounce">🗓️</span> 7 Günlük Tekrar
-</h3>
-<p class="text-gray-300 text-sm group-hover:text-white">7 gün sonra tekrar edilecek kelimeler.</p>
-</div>
+      <div onclick="loadPlannedReview(7)"
+        class="group p-6 rounded-xl shadow cursor-pointer bg-green-400 hover:bg-green-500 transition transform hover:scale-105 text-white">
+        <h3 class="text-lg font-semibold mb-1">🗓️ 7 Günlük Tekrar</h3>
+        <p class="text-gray-300 text-sm group-hover:text-white">7 gün sonra tekrar etmen gereken kelimeler.</p>
+      </div>
 
-<!-- 30 Günlük Tekrar -->
-<div onclick="location.href='plans-30days.html'"
-class="group p-6 rounded-xl shadow cursor-pointer bg-blue-400 hover:bg-blue-500 transition transform hover:scale-105 hover:-translate-y-1 hover:shadow-xl text-white">
-<h3 class="text-lg font-semibold mb-1 group-hover:text-white flex items-center gap-2">
-  <span class="group-hover:animate-bounce">📆</span> 30 Günlük Tekrar
-</h3>
-<p class="text-gray-300 text-sm group-hover:text-white">30 gün sonra tekrar edilecek kelimeler.</p>
-</div>
-     
+      <div onclick="loadPlannedReview(30)"
+        class="group p-6 rounded-xl shadow cursor-pointer bg-blue-400 hover:bg-blue-500 transition transform hover:scale-105 text-white">
+        <h3 class="text-lg font-semibold mb-1">📆 30 Günlük Tekrar</h3>
+        <p class="text-gray-300 text-sm group-hover:text-white">1 ay sonra tekrar etmen gereken kelimeler.</p>
+      </div>
     </div>
 
+    <!-- İlerleme çubuğu ve kartların geleceği alan -->
+    <section id="progress" class="text-center py-6 w-full max-w-md mx-auto hidden">
+      <h2 class="text-lg font-semibold text-gray-800 mb-3">İlerleme</h2>
+      <div class="w-full bg-gray-300 rounded-full h-4 overflow-hidden">
+        <div id="progress-bar" class="bg-red-500 h-4 w-0 transition-all duration-500"></div>
+      </div>
+      <p class="mt-2 text-sm text-gray-700">
+        <span id="progress-count">0</span> / <span id="progress-total">0</span> kelime tekrar edildi
+      </p>
+      <p id="congrats-message" class="mt-4 text-green-600 text-sm font-semibold hidden">
+        🎉 Tebrikler! Bu tekrar grubunu tamamladın!
+      </p>
+    </section>
+
+    <section id="card-container" class="flex flex-wrap justify-center gap-6 mt-6"></section>
   </main>
 
-  <!-- FOOTER -->
   <footer class="p-4 text-center text-sm text-gray-500">
     © 2025 FlipLang. Tüm hakları saklıdır.
   </footer>
 
+  <script type="module" src="js/plans.js"></script>
 </body>
 
 </html>
