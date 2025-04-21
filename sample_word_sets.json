@@ -1,0 +1,86 @@
+{
+  "words": [
+    {
+      "en": "hello",
+      "tr": "merhaba"
+    },
+    {
+      "en": "water",
+      "tr": "su"
+    },
+    {
+      "en": "book",
+      "tr": "kitap"
+    },
+    {
+      "en": "food",
+      "tr": "yemek"
+    },
+    {
+      "en": "school",
+      "tr": "okul"
+    },
+    {
+      "en": "love",
+      "tr": "aşk"
+    },
+    {
+      "en": "happy",
+      "tr": "mutlu"
+    },
+    {
+      "en": "car",
+      "tr": "araba"
+    },
+    {
+      "en": "friend",
+      "tr": "arkadaş"
+    },
+    {
+      "en": "music",
+      "tr": "müzik"
+    }
+  ],
+  "phrases": [
+    {
+      "en": "How are you?",
+      "tr": "Nasılsın?"
+    },
+    {
+      "en": "I love learning languages.",
+      "tr": "Dil öğrenmeyi seviyorum."
+    },
+    {
+      "en": "What time is it?",
+      "tr": "Saat kaç?"
+    },
+    {
+      "en": "Can you help me?",
+      "tr": "Bana yardım edebilir misin?"
+    },
+    {
+      "en": "Where is the nearest station?",
+      "tr": "En yakın istasyon nerede?"
+    },
+    {
+      "en": "I’m looking for a hotel.",
+      "tr": "Bir otel arıyorum."
+    },
+    {
+      "en": "How much does it cost?",
+      "tr": "Bu ne kadar?"
+    },
+    {
+      "en": "I don’t understand.",
+      "tr": "Anlamıyorum."
+    },
+    {
+      "en": "Please speak slowly.",
+      "tr": "Lütfen yavaş konuşun."
+    },
+    {
+      "en": "Thank you very much!",
+      "tr": "Çok teşekkür ederim!"
+    }
+  ]
+}

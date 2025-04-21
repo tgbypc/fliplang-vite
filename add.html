@@ -1,48 +1,117 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yeni Kelime Ekle | FlipLang</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#4F46E5",
+              accent: "#F59E0B",
+            },
+            animation: {
+              'fade-in-up': 'fade-in-up 0.5s ease forwards',
+            },
+            keyframes: {
+              'fade-in-up': {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yeni Kelime Ekle | FlipLang</title>
-  <link rel="stylesheet" href="./style.css" />
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
+  <body class="min-h-screen font-sans bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <!-- HEADER -->
+    <header class="p-4 bg-white shadow flex justify-between items-center">
+      <a href="index.html" class="no-underline hover:no-underline">
+        <h1 class="text-xl font-bold text-primary">📚 FlipLang</h1>
+      </a>
+      <div class="flex items-center gap-4">
+      </div>
+    </header>
 
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+    <!-- MAIN -->
+    <main class="flex-1 p-6 flex flex-col items-center justify-center">
+      <div class="flex items-center justify-center min-h-[80vh]">
+        <form id="wordForm" class="bg-gradient-to-br from-purple-300 via-violet-400 to-rose-400 
+        dark:from-purple-600 dark:via-violet-700 dark:to-rose-700 
+        text-white transition duration-300 ease-in-out shadow-xl 
+        p-6 rounded-xl w-full max-w-md space-y-5 animate-fade-in-up delay-100">
+          <h2 class="text-3xl font-bold text-white text-center tracking-wide">➕ Yeni Kelime Ekle</h2>
 
-  <!-- Header -->
-  <header class="p-4 bg-white shadow flex justify-between items-center">
-    <h1 class="text-xl font-bold text-primary">📚 FlipLang</h1>
-    <a href="index.html" class="text-sm text-primary hover:underline">← Ana Sayfa</a>
-  </header>
+          <!-- Çeviri Yönü -->
+          <div>
+            <label for="langSelect" class="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100">Çeviri Yönü</label>
+            <select id="langSelect" class="w-full p-2 border border-gray-300 rounded bg-white text-gray-900 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500">
+              <option value="en|tr">İngilizce ➜ Türkçe</option>
+              <option value="tr|en">Türkçe ➜ İngilizce</option>
+            </select>
+          </div>
 
-  <!-- Main -->
-  <main class="flex-1 p-8 flex flex-col items-center justify-center">
+          <!-- İngilizce Kelime -->
+          <div>
+            <label for="front" class="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100">İngilizce</label>
+            <div class="flex gap-2">
+              <input
+                type="text"
+                id="front"
+                name="front"
+                required
+                class="flex-1 p-2 border border-gray-300 rounded bg-white text-gray-900 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+              <button
+                type="button"
+                id="translateBtn"
+                class="bg-white text-purple-700 hover:bg-purple-100 font-bold text-sm px-4 py-1 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow"
+              >
+                🔁 Çevir
+              </button>
+            </div>
+          </div>
 
-    <h2 class="text-2xl font-bold text-primary mb-8">Yeni Kelime Ekle</h2>
+          <!-- Türkçe Karşılık -->
+          <div>
+            <label for="back" class="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100">Türkçe</label>
+            <input
+              type="text"
+              id="back"
+              name="back"
+              required
+              class="w-full p-2 border border-gray-300 rounded bg-white text-gray-900 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-2 focus:ring-accent"
+            />
+          </div>
 
-    <form id="addWordForm" class="bg-yellow-300 + hover:bg-yellow-400 p-6 rounded-xl shadow w-full max-w-md flex flex-col gap-4">
-      <input type="text" id="frontInput" placeholder="İngilizce Kelime" required
-        class="p-3 rounded text-gray-800 placeholder-gray-400 outline-none" />
+          <!-- Sabit Ekle Butonu -->
+          <button
+            type="submit"
+            class="w-full bg-white text-rose-700 hover:bg-rose-100 text-lg font-bold py-2 rounded transition duration-300 transform hover:scale-105 shadow"
+          >
+            ➕ EKLE
+          </button>
 
-      <input type="text" id="backInput" placeholder="Türkçe Karşılık" required
-        class="p-3 rounded text-gray-800 placeholder-gray-400 outline-none" />
+          <!-- Başarı Mesajı -->
+          <p id="successMessage" class="text-green-600 text-sm font-semibold text-center hidden transition-all duration-300 ease-in-out">
+            ✅ Kelime kaydedildi!
+          </p>
+        </form>
+      </div>
+    </main>
 
-      <button type="submit"
-        class="bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">Ekle</button>
-
-      <p id="successMessage" class="text-white-400 text-m hidden">✅ Kelime eklendi!</p>
-    </form>
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="p-4 text-center text-sm text-gray-500">
-    © 2025 FlipLang. Tüm hakları saklıdır.
-  </footer>
-
-  <script type="module" src="js/add.js"></script>
-</body>
-
+    <!-- FOOTER -->
+    <footer class="p-4 text-center text-sm text-gray-500">
+      © 2025 FlipLang. Tüm hakları saklıdır.
+    </footer>
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/add.js"></script>
+  </body>
 </html>

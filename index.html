@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="">
 
 <head>
   <meta charset="UTF-8" />
@@ -11,18 +11,16 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
-    window.tailwind = {
-      config: {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#4F46E5",
-              accent: "#F59E0B",
-            },
-            fontFamily: {
-              sans: ["Inter", "sans-serif"],
-            },
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#4F46E5",
+            accent: "#F59E0B",
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
           },
         },
       },
@@ -31,66 +29,74 @@
   <link rel="icon" href="assets/images/favicon.ico" />
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+<body class="min-h-screen font-sans text-gray-900 bg-white dark:bg-gray-900 dark:text-gray-100">
 
   <!-- HEADER -->
   <header class="p-4 bg-white shadow flex justify-between items-center">
-    <h1 class="text-xl font-bold text-primary">📚 FlipLang</h1>
+    <a href="index.html" class="no-underline hover:no-underline">
+      <h1 class="text-xl font-bold text-primary">📚 FlipLang</h1>
+    </a>
     <button id="themeToggle"
       class="text-sm bg-primary text-white px-3 py-1 rounded hover:bg-indigo-700 transition">🌗 Tema</button>
   </header>
 
   <!-- MAIN -->
-  <main class="flex-1 p-8 flex flex-col items-center justify-center opacity-0 translate-y-5 animate-fade-in-up">
-    <h2 class="text-2xl font-bold text-primary mb-8">Ne yapmak istersin?</h2>
+  <main class="flex flex-col lg:flex-row gap-6 p-10 w-full max-w-7xl mx-auto min-h-[80vh]">
 
-    <div class="flex flex-col gap-4 w-full max-w-md">
-
-      <!-- Bugünkü Tekrar -->
-      <div onclick="location.href='review.html'"
-        class="group p-6 rounded-xl shadow cursor-pointer bg-orange-400 hover:bg-orange-500 transition transform hover:scale-105 hover:-translate-y-1 hover:shadow-xl text-white">
-        <h3 class="text-lg font-semibold mb-1 group-hover:text-white flex items-center gap-2">
-          <span class="group-hover:animate-bounce">🔁</span> Bugünkü Tekrar
-        </h3>
-        <p class="text-gray-300 text-sm group-hover:text-white">
-          Günlük kelimelerini tekrar et
+    <!-- Sol Sütun -->
+    <section class="flex flex-col justify-between w-full lg:w-1/2 gap-6">
+      <!-- FlipLang Nedir -->
+      <div class="bg-indigo-50 dark:bg-indigo-800 border-l-4 border-indigo-400 p-6 rounded-lg shadow w-full h-full">
+        <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-200 mb-2">📚 FlipLang Nedir?</h2>
+        <p class="text-sm text-indigo-900 dark:text-indigo-100">
+          FlipLang, dil öğrenmeyi eğlenceli ve etkili hale getiren bir platformdur. Leitner sistemi sayesinde öğrenilen kelimeler belirli aralıklarla tekrar edilir ve uzun süreli hafızaya yerleşmesi sağlanır. Uygulama, minimal tasarımı ve kullanıcı dostu arayüzüyle dil öğrenme sürecini hızlandırır.
         </p>
+        <ul class="mt-3 text-sm list-disc list-inside text-gray-600 dark:text-gray-400">
+          <li>Günde 5 dakikada kalıcı öğrenme</li>
+          <li>3-7-30 gün aralıklı tekrar sistemi</li>
+          <li>Bildirimlerle unutmayı önle</li>
+        </ul>
       </div>
 
-      <!-- Planlı Tekrarlar -->
-      <div onclick="location.href='plans.html'"
-        class="group p-6 rounded-xl shadow cursor-pointer bg-green-400 hover:bg-green-500 transition transform hover:scale-105 hover:-translate-y-1 hover:shadow-xl text-white">
-        <h3 class="text-lg font-semibold mb-1 group-hover:text-white flex items-center gap-2">
-          <span class="group-hover:animate-bounce">🗓️</span> Planlı Tekrarlar
-        </h3>
-        <p class="text-gray-300 text-sm group-hover:text-white">
-          3-7-30 gün tekrar planı
-        </p>
+      <!-- Günlük İstatistik -->
+      <div class="bg-pink-100 dark:bg-pink-900 p-6 rounded-lg shadow text-pink-900 dark:text-pink-100 w-full">
+        <h2 class="text-xl font-semibold mb-2">📊 Günlük İstatistik</h2>
+        <ul class="space-y-2 text-sm">
+          <li>🌱 Bugünkü tekrar: <strong><span id="statToday">0</span></strong></li>
+          <li>✅ Öğrenilen kelime: <strong><span id="statLearned">0</span></strong></li>
+          <li>📦 Kutu doluluğu: <strong><span id="statProgress">%0</span></strong></li>
+        </ul>
+        <a href="stats.html" class="text-sm text-primary underline hover:text-indigo-600 mt-4 block">📊 Ayrıntılı istatistikleri görüntüle</a>
       </div>
+    </section>
 
-      <!-- Yeni Kelime Ekle -->
-      <div onclick="location.href='add.html'"
-        class="group p-6 rounded-xl shadow cursor-pointer bg-blue-400 hover:bg-blue-500 transition transform hover:scale-105 hover:-translate-y-1 hover:shadow-xl text-white">
-        <h3 class="text-lg font-semibold mb-1 group-hover:text-white flex items-center gap-2">
-          <span class="group-hover:animate-bounce">➕</span> Yeni Kelime Ekle
-        </h3>
-        <p class="text-gray-300 text-sm group-hover:text-white">
-          Kendi kelimelerini oluştur
-        </p>
+    <!-- Sağ Sütun -->
+    <section class="w-full lg:w-1/2 bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow flex flex-col justify-start">
+      <h2 class="text-2xl font-bold text-primary mb-6">🚀 Başla ve Geliş!</h2>
+      <div class="flex flex-col gap-4 w-full">
+        <div onclick="location.href='review.html'" class="w-full p-4 rounded-xl bg-orange-500 hover:bg-orange-700 text-white transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1">
+          <h3 class="text-md font-semibold mb-1 flex items-center gap-2"><span class="text-2xl">🔁</span> <div class="text-sm">Bugünkü Tekrar</div></h3>
+          <p class="text-sm text-orange-100">Günlük kelimelerini tekrar et</p>
+        </div>
+        <div onclick="location.href='plans.html'" class="w-full p-4 rounded-xl bg-green-500 hover:bg-green-700 text-white transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1">
+          <h3 class="text-md font-semibold mb-1 flex items-center gap-2"><span class="text-2xl">🗓️</span> <div class="text-sm">Planlı Tekrarlar</div></h3>
+          <p class="text-sm text-green-100">3-7-30 gün tekrar planı</p>
+        </div>
+        <div onclick="location.href='add.html'" class="w-full p-4 rounded-xl bg-blue-500 hover:bg-blue-700 text-white transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1">
+          <h3 class="text-md font-semibold mb-1 flex items-center gap-2"><span class="text-2xl">➕</span> <div class="text-sm">Yeni Kelime Ekle</div></h3>
+          <p class="text-sm text-blue-100">Kendi kelimelerini oluştur</p>
+        </div>
+        <div onclick="location.href='cards.html'" class="w-full p-4 rounded-xl bg-purple-500 hover:bg-purple-700 text-white transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1">
+          <h3 class="text-md font-semibold mb-1 flex items-center gap-2"><span class="text-2xl">📘</span> <div class="text-sm">Tüm Kartlarım</div></h3>
+          <p class="text-sm text-purple-100">Kelime kütüphaneni incele</p>
+        </div>
+        <div onclick="location.href='learned.html'" class="w-full p-4 rounded-xl bg-yellow-500 hover:bg-yellow-700 text-white transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1">
+          <h3 class="text-md font-semibold mb-1 flex items-center gap-2"><span class="text-2xl">✅</span> <div class="text-sm">Öğrenilenler</div></h3>
+          <p class="text-sm text-yellow-100">Tamamlanan kelimeler</p>
+        </div>
       </div>
+    </section>
 
-      <!-- Kartlarım -->
-      <div onclick="location.href='cards.html'"
-        class="group p-6 rounded-xl shadow cursor-pointer bg-purple-400 hover:bg-purple-500 transition transform hover:scale-105 hover:-translate-y-1 hover:shadow-xl text-white">
-        <h3 class="text-lg font-semibold mb-1 group-hover:text-white flex items-center gap-2">
-          <span class="group-hover:animate-bounce">📚</span> Kartlarım
-        </h3>
-        <p class="text-gray-300 text-sm group-hover:text-white">
-          Tüm kelimelerini görüntüle
-        </p>
-      </div>
-
-    </div>
   </main>
 
   <!-- FOOTER -->
@@ -98,6 +104,7 @@
     © 2025 FlipLang. Tüm hakları saklıdır.
   </footer>
 
+  
   <script type="module" src="js/app.js"></script>
 </body>
 
