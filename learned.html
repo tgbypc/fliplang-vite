@@ -12,24 +12,25 @@
         theme: {
           extend: {
             colors: {
-              primary: "#A78BFA",       // Mor tonu (başlıklar, butonlar)
-              accent: "#FDE68A",        // Sarı tonu (vurgular, ikonlar)
-              surface: "#F9FAFB",       // Arka planlarda kullanılır
-              textMain: "#374151",      // Ana yazı rengi
-              textMuted: "#6B7280",     // Açıklama metinleri
-              logo: "#6366F1"           // FlipLang logosu için mavi-mor tonu
+              primary: "#A78BFA", // Mor tonu (başlıklar, butonlar)
+              accent: "#FDE68A", // Sarı tonu (vurgular, ikonlar)
+              surface: "#F9FAFB", // Arka planlarda kullanılır
+              textMain: "#374151", // Ana yazı rengi
+              textMuted: "#6B7280", // Açıklama metinleri
+              logo: "#6366F1", // FlipLang logosu için mavi-mor tonu
             },
             fontFamily: {
               sans: ["Inter", "sans-serif"],
-              display: ["Poppins", "sans-serif"]
-            }
-          }
-        }
+              display: ["Poppins", "sans-serif"],
+            },
+          },
+        },
       };
     </script>
   </head>
-  <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
-    <!-- HEADER -->
+  <body
+    class="min-h-screen flex flex-col font-sans bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+  >
     <header
       class="bg-beige-50/90 dark:bg-gray-900/80 backdrop-blur-md shadow-sm sticky top-0 z-50"
     >
@@ -42,7 +43,6 @@
           >📚 FlipLang</a
         >
 
-        <!-- Mobil Menü Toggle -->
         <button
           id="menuToggle"
           class="sm:hidden text-xl focus:outline-none text-logo dark:text-white"
@@ -50,7 +50,6 @@
           ☰
         </button>
 
-        <!-- Açılır Menü Kutusu -->
         <div
           id="mobileMenu"
           class="sm:hidden hidden flex flex-col gap-3 absolute top-16 right-4 left-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 z-50 transition-all duration-300"
@@ -67,16 +66,16 @@
           >
 
           <a
-          href="add-word.html"
-          class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
-          >➕ Kelime Ekle</a
-        >
+            href="add-word.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >➕ Kelime Ekle</a
+          >
           <a
             href="cards.html"
             class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
             >🧠 Kartlar</a
           >
-       
+
           <a
             href="learned.html"
             class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
@@ -100,17 +99,17 @@
             >Plan</a
           >
           <a
-          href="add-word.html"
-          class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
-          >Kelime Ekle</a
+            href="add-word.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Kelime Ekle</a
           >
-     
+
           <a
             href="cards.html"
             class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
             >Kartlar</a
           >
-       
+
           <a
             href="learned.html"
             class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
@@ -131,41 +130,75 @@
         </button>
       </nav>
     </header>
-    <!-- MAIN -->
-    <main class="p-6 flex flex-col items-center gap-6 text-center flex-1">
-      <section aria-labelledby="learned-heading" class="text-center">
-        <h2 id="learned-heading" class="text-2xl font-bold text-primary dark:text-primary">🎓 Öğrenilen Kelimeler</h2>
-        <p class="text-gray-600 dark:text-gray-300 max-w-xl">
-          Leitner sistemiyle öğrendiğin kelimeler burada listelenir. Aferin sana!
+    <main class="flex-grow px-4 py-10 w-full max-w-4xl mx-auto space-y-6">
+      <section aria-labelledby="learned-heading" class="text-center space-y-2">
+        <h2
+          id="learned-heading"
+          class="text-2xl font-bold text-primary dark:text-primary"
+        >
+          🎓 Öğrenilen Kelimeler
+        </h2>
+        <p class="text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+          Leitner sistemiyle öğrendiğin kelimeler burada listelenir. Aferin
+          sana!
         </p>
       </section>
 
-      <div id="learnedProgress" class="w-full max-w-md bg-surface dark:bg-gray-800 rounded-full h-4" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-        <div id="learnedProgressBar" class="bg-green-500 h-4 rounded-full" style="width: 0%;"></div>
+      <div
+        id="learnedProgress"
+        class="w-full max-w-md bg-surface dark:bg-gray-800 rounded-full h-4 mx-auto"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+      >
+        <div
+          id="learnedProgressBar"
+          class="bg-green-500 h-4 rounded-full"
+          style="width: 0%"
+        ></div>
       </div>
-      <p id="progressText" class="text-sm text-gray-600 dark:text-gray-300">0/0 kelime öğrenildi</p>
+      <p
+        id="progressText"
+        class="text-sm text-center text-gray-600 dark:text-gray-300"
+      >
+        0/0 kelime öğrenildi
+      </p>
 
-      <div class="flex gap-4">
-        <button id="exportJson" class="bg-primary hover:bg-primary/80 text-white px-4 py-2 rounded text-sm transition">
+      <div class="flex justify-center gap-4">
+        <button
+          id="exportJson"
+          class="bg-primary hover:bg-primary/80 text-white px-4 py-2 rounded text-sm transition"
+        >
           📁 JSON olarak dışa aktar
         </button>
-        <button id="exportPdf" class="bg-accent hover:bg-yellow-400 text-gray-900 px-4 py-2 rounded text-sm transition">
+        <button
+          id="exportPdf"
+          class="bg-accent hover:bg-yellow-400 text-gray-900 px-4 py-2 rounded text-sm transition"
+        >
           🧾 PDF olarak dışa aktar
         </button>
       </div>
 
-      <div class="w-full max-w-2xl bg-white dark:bg-gray-800 rounded shadow p-4 overflow-hidden max-h-[60vh]">
-        <div id="learnedContainer" class="flex flex-col gap-3 overflow-y-auto pr-2 max-h-[52vh] max-w-2xl mx-auto">
-          <!-- Öğrenilen kartlar buraya eklenecek -->
+      <div
+        class="w-full max-w-2xl bg-white dark:bg-gray-800 rounded shadow p-4 mx-auto overflow-hidden max-h-[60vh]"
+      >
+        <div
+          id="learnedContainer"
+          class="flex flex-col gap-3 overflow-y-auto pr-2 max-h-[52vh]"
+        >
+          <!-- Learned cards will be rendered here -->
         </div>
       </div>
 
-      <p id="emptyMessage" class="text-textMuted dark:text-textMuted hidden">
+      <p
+        id="emptyMessage"
+        class="text-textMuted dark:text-textMuted text-center hidden"
+      >
         Henüz öğrenilen kelimen yok. FlipLang ile çalışmaya devam! 🚀
       </p>
     </main>
 
-    <!-- FOOTER -->
     <footer class="p-4 text-center text-sm text-gray-500 dark:text-gray-400">
       © 2025 FlipLang. Tüm hakları saklıdır.
     </footer>

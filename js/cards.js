@@ -32,18 +32,21 @@ function toggleTabs(showMyCards) {
 
 function createMyCard(card) {
   const div = document.createElement("div");
-  div.className = "flex justify-between items-center bg-white text-gray-900 dark:bg-white dark:text-gray-800 border border-gray-200 dark:border-gray-300 p-4 rounded-lg shadow hover:shadow-md transition";
+  div.className =
+    "flex justify-between items-center bg-white text-gray-900 dark:bg-white dark:text-gray-800 border border-gray-200 dark:border-gray-300 p-4 rounded-lg shadow hover:shadow-md transition";
 
   div.innerHTML = `
     <div>
       <p class="font-medium text-primary">📘 ${card.front} ➜ ${card.back}</p>
-      <p class="text-sm text-gray-500">📅 Eklendi: ${card.reviewedDate || "-"} | 🔁 ${getBoxLabel(card.box)}</p>
+      <p class="text-sm text-gray-500">📅 Eklendi: ${
+        card.reviewedDate || "-"
+      } | 🔁 ${getBoxLabel(card.box)}</p>
     </div>
     <button class="ml-4 px-3 py-1 bg-red-500 hover:bg-red-600 text-white text-sm rounded transition">🗑 Sil</button>
   `;
 
   div.querySelector("button").addEventListener("click", () => {
-    const updated = getStoredCards().filter(c => c.id !== card.id);
+    const updated = getStoredCards().filter((c) => c.id !== card.id);
     localStorage.setItem("cards", JSON.stringify(updated));
     div.remove();
   });
@@ -53,7 +56,8 @@ function createMyCard(card) {
 
 function createApiCard(item) {
   const div = document.createElement("div");
-  div.className = "flex justify-between items-center bg-white text-gray-900 dark:bg-white dark:text-gray-800 border border-gray-200 dark:border-gray-300 p-4 rounded-lg shadow hover:shadow-md transition";
+  div.className =
+    "flex justify-between items-center bg-white text-gray-900 dark:bg-white dark:text-gray-800 border border-gray-200 dark:border-gray-300 p-4 rounded-lg shadow hover:shadow-md transition";
 
   div.innerHTML = `
     <div>
@@ -64,7 +68,7 @@ function createApiCard(item) {
 
   div.querySelector("button").addEventListener("click", () => {
     const stored = getStoredCards();
-    const exists = stored.find(c => c.front === item.en);
+    const exists = stored.find((c) => c.front === item.en);
     if (!exists) {
       addCardToStorage({
         id: Date.now(),
@@ -72,7 +76,7 @@ function createApiCard(item) {
         back: item.tr,
         box: 1,
         reviewedDate: new Date().toISOString().split("T")[0],
-        nextReview: new Date().toISOString().split("T")[0]
+        nextReview: new Date().toISOString().split("T")[0],
       });
       showMessage(`✅ "${item.en}" kelimesi eklendi!`, "success");
     } else {
@@ -86,10 +90,10 @@ function createApiCard(item) {
 myCardsTab.addEventListener("click", () => toggleTabs(true));
 apiCardsTab.addEventListener("click", () => toggleTabs(false));
 
-// LocalStorage Kartları
+// LocalStorage Cards
 const myCardsWrapper = document.getElementById("myCardsWrapper");
 
-getStoredCards().forEach(card => {
+getStoredCards().forEach((card) => {
   myCardsWrapper.appendChild(createMyCard(card));
 });
 
@@ -102,23 +106,24 @@ async function fetchApiWords() {
     const dailyWrapper = document.getElementById("setDaily");
     const phrasesWrapper = document.getElementById("apiPhrasesWrapper");
 
-    // Selamlaşma ve Günlük Hayat örnek ayrımı
+    // Split API words into categories
     const greetings = data.words.slice(0, 5);
     const daily = data.words.slice(5, 10);
     const phrases = data.phrases;
 
-    greetings.forEach(item => greetingWrapper.appendChild(createApiCard(item)));
-    daily.forEach(item => dailyWrapper.appendChild(createApiCard(item)));
-    phrases.forEach(item => phrasesWrapper.appendChild(createApiCard(item)));
-
+    greetings.forEach((item) =>
+      greetingWrapper.appendChild(createApiCard(item)),
+    );
+    daily.forEach((item) => dailyWrapper.appendChild(createApiCard(item)));
+    phrases.forEach((item) => phrasesWrapper.appendChild(createApiCard(item)));
   } catch (error) {
-    console.error("API verisi alınamadı:", error);
+    console.error("API data could not be retrieved:", error);
   }
 }
 fetchApiWords();
 
 // Accordion toggles
-document.querySelectorAll(".toggle-set").forEach(btn => {
+document.querySelectorAll(".toggle-set").forEach((btn) => {
   btn.addEventListener("click", () => {
     const target = document.getElementById(btn.dataset.target);
     target.classList.toggle("hidden");

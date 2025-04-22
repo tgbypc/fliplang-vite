@@ -36,7 +36,6 @@
   <body
     class="min-h-screen font-sans text-gray-900 bg-white dark:bg-gray-900 dark:text-gray-100"
   >
-    <!-- HEADER -->
     <header
       class="bg-beige-50/90 dark:bg-gray-900/80 backdrop-blur-md shadow-sm sticky top-0 z-50"
     >
@@ -49,7 +48,6 @@
           >📚 FlipLang</a
         >
 
-        <!-- Mobil Menü Toggle -->
         <button
           id="menuToggle"
           class="sm:hidden text-xl focus:outline-none text-logo dark:text-white"
@@ -57,7 +55,6 @@
           ☰
         </button>
 
-        <!-- Açılır Menü Kutusu -->
         <div
           id="mobileMenu"
           class="sm:hidden hidden flex flex-col gap-3 absolute top-16 right-4 left-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 z-50 transition-all duration-300"
@@ -74,16 +71,16 @@
           >
 
           <a
-          href="add-word.html"
-          class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
-          >➕ Kelime Ekle</a
-        >
+            href="add-word.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >➕ Kelime Ekle</a
+          >
           <a
             href="cards.html"
             class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
             >🧠 Kartlar</a
           >
-       
+
           <a
             href="learned.html"
             class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
@@ -107,17 +104,17 @@
             >Plan</a
           >
           <a
-          href="add-word.html"
-          class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
-          >Kelime Ekle</a
+            href="add-word.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Kelime Ekle</a
           >
-     
+
           <a
             href="cards.html"
             class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
             >Kartlar</a
           >
-       
+
           <a
             href="learned.html"
             class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
@@ -139,11 +136,23 @@
       </nav>
     </header>
 
-    <!-- MAIN -->
+    <!-- Reminder notification for today's words -->
+    <div
+      id="notification"
+      class="hidden max-w-5xl mx-auto mt-4 px-6 py-4 rounded-lg bg-purple-100 dark:bg-purple-300 text-purple-900 dark:text-purple-950 text-sm shadow transition-all"
+    >
+      🔔 Bugün <span id="notificationCount"></span> kelime seni bekliyor!
+      <a
+        href="review.html"
+        class="underline font-medium hover:text-purple-700 dark:hover:text-purple-900"
+        >Hemen tekrar et</a
+      >
+      💪
+    </div>
+
     <main
       class="flex flex-col lg:flex-row gap-6 p-10 w-full max-w-7xl mx-auto min-h-[80vh]"
     >
-      <!-- Sol Sütun -->
       <section class="flex flex-col justify-between w-full lg:w-1/2 gap-6">
         <!-- FlipLang Nedir -->
         <section
@@ -198,7 +207,6 @@
         </div>
       </section>
 
-      <!-- Sağ Sütun -->
       <section
         class="w-full lg:w-1/2 bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow flex flex-col justify-start"
       >
@@ -262,7 +270,6 @@
       </section>
     </main>
 
-    <!-- FOOTER -->
     <footer class="p-4 text-center text-sm text-textMuted">
       © 2025 FlipLang. Tüm hakları saklıdır.
     </footer>

@@ -1,9 +1,11 @@
 import { getNextReviewDate } from "./leitner.js";
 
+// Return today's date in YYYY-MM-DD format
 function getTodayDate() {
   return new Date().toISOString().split("T")[0];
 }
 
+// Generate the front side of a flashcard
 function renderCard(card) {
   return `
     <div class="bg-white text-gray-800 dark:bg-white dark:text-gray-800 shadow rounded-xl p-6 transition duration-300 hover:scale-[1.02] hover:shadow-lg animate-fade-in-up">
@@ -16,6 +18,7 @@ function renderCard(card) {
   `;
 }
 
+// Generate the back side of a flashcard (shown after incorrect answer)
 function renderBackCard(card) {
   return `
     <div class="bg-surface text-textMain dark:bg-gray-800 dark:text-white shadow rounded-xl p-6 text-center hover:scale-[1.02] hover:shadow-lg animate-fade-in-up">
@@ -33,17 +36,18 @@ const emptyMessage = document.getElementById("emptyMessage");
 
 let reviewWords = JSON.parse(localStorage.getItem("cards")) || [];
 
-// Sadece bugünkü kartlar
 const today = getTodayDate();
-reviewWords = reviewWords.filter(card => card.nextReview === today);
+reviewWords = reviewWords.filter((card) => card.nextReview === today);
 
 let currentIndex = 0;
 let correctCount = 0;
 
+// Show or hide the empty message state
 function toggleEmptyMessage(show) {
   if (emptyMessage) emptyMessage.style.display = show ? "block" : "none";
 }
 
+// Update review progress bar and text
 function updateProgress() {
   const percent = Math.round((correctCount / reviewWords.length) * 100);
   progressBar.style.width = `${percent}%`;
@@ -52,9 +56,10 @@ function updateProgress() {
   else if (percent < 80) progressBar.className = "h-2 rounded bg-yellow-400";
   else progressBar.className = "h-2 rounded bg-green-500";
 
-  progressText.textContent = `${correctCount} / ${reviewWords.length} kelime tekrar edildi`;
+  progressText.textContent = `${correctCount} / ${reviewWords.length} kelime tekrar edildi.`;
 }
 
+// Render current card and handle user actions
 function showCard() {
   const card = reviewWords[currentIndex];
 
@@ -94,6 +99,7 @@ function showCard() {
   });
 }
 
+// Display final message after all reviews are completed
 function finishReview() {
   wordContainer.innerHTML = `
     <div class="text-center animate-fade-in-up">
@@ -105,15 +111,17 @@ function finishReview() {
   toggleEmptyMessage(true);
 }
 
+// Save updated card states back to localStorage
 function saveChanges() {
   const allCards = JSON.parse(localStorage.getItem("cards")) || [];
-  const updated = allCards.map(c => {
-    const match = reviewWords.find(r => r.id === c.id);
+  const updated = allCards.map((c) => {
+    const match = reviewWords.find((r) => r.id === c.id);
     return match ? match : c;
   });
   localStorage.setItem("cards", JSON.stringify(updated));
 }
 
+// Initialize review session
 if (reviewWords.length > 0) {
   toggleEmptyMessage(false);
   updateProgress();

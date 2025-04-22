@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateLabels(langSelect.value);
   });
 
-  // Helper: Set translate button and input UI state
+  // Update translate button and input state
   function setTranslateUIState(loading, fallbackValue = null) {
     translateBtn.disabled = loading;
     translateBtn.textContent = loading ? "⏳..." : "🔁 Çevir";
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ✅ 1. Translate butonuna basıldığında otomatik çeviri yap
+  // Step 1: Translate word on button click
   translateBtn.addEventListener("click", async () => {
     const word = frontInput.value.trim();
     if (!word) return;
@@ -44,7 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const langPair = langSelect.value;
-      const response = await fetch(`https://api.mymemory.translated.net/get?q=${word}&langpair=${langPair}`);
+      const response = await fetch(
+        `https://api.mymemory.translated.net/get?q=${word}&langpair=${langPair}`,
+      );
       const data = await response.json();
       const translatedText = data.responseData.translatedText;
 
@@ -57,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ✅ 2. Kelimeyi localStorage'a ekle
+  // Step 2: Save translated word to localStorage
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -81,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     showMessage("✅ Kelime kaydedildi!", "success");
 
-    // Temizle
+    // Reset input fields
     frontInput.value = "";
     backInput.value = "";
   });

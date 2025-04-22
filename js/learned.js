@@ -7,34 +7,39 @@ function getStoredCards() {
 
 function createLearnedCard(card) {
   const div = document.createElement("div");
-  div.className = "flex justify-between items-center bg-white dark:bg-white text-gray-900 dark:text-gray-800 p-4 rounded-md shadow border border-gray-200 dark:border-gray-300 transition-all duration-300 hover:shadow-md";
+  div.className =
+    "flex justify-between items-center bg-white dark:bg-white text-gray-900 dark:text-gray-800 p-4 rounded-md shadow border border-gray-200 dark:border-gray-300 transition-all duration-300 hover:shadow-md";
 
   div.innerHTML = `
     <div>
-      <h3 class="text-base font-semibold text-primary">${card.front} ➜ ${card.back}</h3>
-      <p class="text-xs text-gray-500 mt-1">📦 ${getBoxLabel(card.box)} | 📅 Öğrenildi: ${card.reviewedDate || "-"}</p>
+      <h3 class="text-base font-semibold text-primary">${card.front} ➜ ${
+    card.back
+  }</h3>
+      <p class="text-xs text-gray-500 mt-1">📦 ${getBoxLabel(
+        card.box,
+      )} | 📅 Öğrenildi: ${card.reviewedDate || "-"}</p>
     </div>
   `;
   return div;
 }
 
-// LocalStorage'dan kartları al
+// Get cards from localStorage
 const allCards = getStoredCards();
-const learnedCards = allCards.filter(card => card.box === 5);
+const learnedCards = allCards.filter((card) => card.box === 5);
 
 const container = document.getElementById("learnedContainer");
 const progressBar = document.getElementById("learnedProgressBar");
 const progressText = document.getElementById("progressText");
 const emptyMessage = document.getElementById("emptyMessage");
 
-// Öğrenilen kartları göster
+// Render learned cards
 function renderLearnedCards() {
   if (learnedCards.length === 0) {
     emptyMessage.classList.remove("hidden");
     return;
   }
 
-  learnedCards.forEach(card => {
+  learnedCards.forEach((card) => {
     container.appendChild(createLearnedCard(card));
   });
 
@@ -46,7 +51,7 @@ function renderLearnedCards() {
 
 renderLearnedCards();
 
-// JSON olarak dışa aktar
+// Export as JSON
 document.getElementById("exportJson").addEventListener("click", () => {
   const json = JSON.stringify(learnedCards, null, 2);
   const blob = new Blob([json], { type: "application/json" });
@@ -60,7 +65,7 @@ document.getElementById("exportJson").addEventListener("click", () => {
   URL.revokeObjectURL(url);
 });
 
-// PDF olarak dışa aktar
+// Export as PDF
 document.getElementById("exportPdf").addEventListener("click", () => {
   const doc = new jsPDF();
   doc.setFontSize(12);

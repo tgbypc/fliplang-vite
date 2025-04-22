@@ -12,201 +12,229 @@
         theme: {
           extend: {
             colors: {
-              primary: "#A78BFA",       // Mor tonu (başlıklar, butonlar)
-              accent: "#FDE68A",        // Sarı tonu (vurgular, ikonlar)
-              surface: "#F9FAFB",       // Arka planlarda kullanılır
-              textMain: "#374151",      // Ana yazı rengi
-              textMuted: "#6B7280",     // Açıklama metinleri
-              logo: "#6366F1"           // FlipLang logosu için mavi-mor tonu
+              primary: "#A78BFA", // Mor tonu (başlıklar, butonlar)
+              accent: "#FDE68A", // Sarı tonu (vurgular, ikonlar)
+              surface: "#F9FAFB", // Arka planlarda kullanılır
+              textMain: "#374151", // Ana yazı rengi
+              textMuted: "#6B7280", // Açıklama metinleri
+              logo: "#6366F1", // FlipLang logosu için mavi-mor tonu
             },
             fontFamily: {
               sans: ["Inter", "sans-serif"],
-              display: ["Poppins", "sans-serif"]
-            }
-          }
-        }
+              display: ["Poppins", "sans-serif"],
+            },
+          },
+        },
       };
     </script>
   </head>
 
-  <body class="min-h-screen font-sans bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-   <!-- HEADER -->
-   <header
-   class="bg-beige-50/90 dark:bg-gray-900/80 backdrop-blur-md shadow-sm sticky top-0 z-50"
- >
-   <nav
-     class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between"
-   >
-     <a
-       href="index.html"
-       class="text-2xl font-display font-bold text-logo dark:text-white"
-       >📚 FlipLang</a
-     >
+  <body
+    class="min-h-screen flex flex-col font-sans bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+  >
+    <header
+      class="bg-beige-50/90 dark:bg-gray-900/80 backdrop-blur-md shadow-sm sticky top-0 z-50"
+    >
+      <nav
+        class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between"
+      >
+        <a
+          href="index.html"
+          class="text-2xl font-display font-bold text-logo dark:text-white"
+          >📚 FlipLang</a
+        >
 
-     <!-- Mobil Menü Toggle -->
-     <button
-       id="menuToggle"
-       class="sm:hidden text-xl focus:outline-none text-logo dark:text-white"
-     >
-       ☰
-     </button>
+        <button
+          id="menuToggle"
+          class="sm:hidden text-xl focus:outline-none text-logo dark:text-white"
+        >
+          ☰
+        </button>
 
-     <!-- Açılır Menü Kutusu -->
-     <div
-       id="mobileMenu"
-       class="sm:hidden hidden flex flex-col gap-3 absolute top-16 right-4 left-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 z-50 transition-all duration-300"
-     >
-       <a
-         href="review.html"
-         class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
-         >📖 Tekrar</a
-       >
-       <a
-         href="plans.html"
-         class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
-         >🗓️ Plan</a
-       >
+        <div
+          id="mobileMenu"
+          class="sm:hidden hidden flex flex-col gap-3 absolute top-16 right-4 left-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 z-50 transition-all duration-300"
+        >
+          <a
+            href="review.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >📖 Tekrar</a
+          >
+          <a
+            href="plans.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >🗓️ Plan</a
+          >
 
-       <a
-       href="add-word.html"
-       class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
-       >➕ Kelime Ekle</a
-     >
-       <a
-         href="cards.html"
-         class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
-         >🧠 Kartlar</a
-       >
-    
-       <a
-         href="learned.html"
-         class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
-         >✅ Öğrenilen</a
-       >
-       <a
-         href="stats.html"
-         class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
-         >📊 İstatistik</a
-       >
-     </div>
-     <div class="hidden sm:flex gap-3 text-sm font-medium items-center">
-       <a
-         href="review.html"
-         class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
-         >Tekrar</a
-       >
-       <a
-         href="plans.html"
-         class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
-         >Plan</a
-       >
-       <a
-       href="add-word.html"
-       class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
-       >Kelime Ekle</a
-       >
-  
-       <a
-         href="cards.html"
-         class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
-         >Kartlar</a
-       >
-    
-       <a
-         href="learned.html"
-         class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
-         >Öğrenilenler</a
-       >
-       <a
-         href="stats.html"
-         class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
-         >İstatistik</a
-       >
-     </div>
+          <a
+            href="add-word.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >➕ Kelime Ekle</a
+          >
+          <a
+            href="cards.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >🧠 Kartlar</a
+          >
 
-     <button
-       id="themeToggle"
-       class="ml-4 px-2 py-1 text-sm bg-gradient-to-r from-indigo-500 to-yellow-400 hover:from-indigo-600 hover:to-yellow-500 text-white rounded shadow-sm transition"
-     >
-       🌗
-     </button>
-   </nav>
- </header>
-    <!-- MAIN -->
-    <main class="flex-1 p-6 flex flex-col items-center justify-center">
+          <a
+            href="learned.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >✅ Öğrenilen</a
+          >
+          <a
+            href="stats.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >📊 İstatistik</a
+          >
+        </div>
+        <div class="hidden sm:flex gap-3 text-sm font-medium items-center">
+          <a
+            href="review.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Tekrar</a
+          >
+          <a
+            href="plans.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Plan</a
+          >
+          <a
+            href="add-word.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Kelime Ekle</a
+          >
+
+          <a
+            href="cards.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Kartlar</a
+          >
+
+          <a
+            href="learned.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Öğrenilenler</a
+          >
+          <a
+            href="stats.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >İstatistik</a
+          >
+        </div>
+
+        <button
+          id="themeToggle"
+          class="ml-4 px-2 py-1 text-sm bg-gradient-to-r from-indigo-500 to-yellow-400 hover:from-indigo-600 hover:to-yellow-500 text-white rounded shadow-sm transition"
+        >
+          🌗
+        </button>
+      </nav>
+    </header>
+
+    <main class="flex-grow px-6 py-8 w-full max-w-4xl mx-auto">
       <div class="flex items-center justify-center min-h-[80vh]">
         <section aria-labelledby="add-word-title" class="w-full max-w-md">
-          <form id="wordForm" class="bg-gradient-to-r from-purple-100 via-purple-200 to-purple-100 dark:from-purple-300 dark:via-purple-400 dark:to-purple-300 text-textMain dark:text-white transition duration-300 ease-in-out shadow-xl p-6 rounded-xl space-y-5 animate-fade-in-up delay-100">
-            <h2 id="add-word-title" class="text-3xl font-bold text-logo dark:text-white text-center tracking-wide">➕ Yeni Kelime Ekle</h2>
-            <p class="text-sm text-textMuted text-center mt-1 mb-4">Yeni bir kelime eklemek için aşağıdaki alanları doldurun.</p>
+          <form
+            id="wordForm"
+            class="bg-gradient-to-r from-purple-100 via-purple-200 to-purple-100 dark:from-purple-300 dark:via-purple-400 dark:to-purple-300 text-textMain dark:text-white transition duration-300 ease-in-out shadow-xl p-6 rounded-xl space-y-5 animate-fade-in-up delay-100"
+          >
+            <h2
+              id="add-word-title"
+              class="text-3xl font-bold text-logo dark:text-white text-center tracking-wide"
+            >
+              ➕ Yeni Kelime Ekle
+            </h2>
+            <p class="text-sm text-textMuted text-center mt-1 mb-4">
+              Yeni bir kelime eklemek için aşağıdaki alanları doldurun.
+            </p>
 
-          <!-- Çeviri Yönü -->
-          <div>
-            <label for="langSelect" class="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100">Çeviri Yönü</label>
-            <select id="langSelect" class="w-full p-2 border border-gray-300 rounded bg-white text-gray-900 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500">
-              <option value="en|tr">İngilizce ➜ Türkçe</option>
-              <option value="tr|en">Türkçe ➜ İngilizce</option>
-            </select>
-          </div>
+            <!-- Translation direction -->
+            <div>
+              <label
+                for="langSelect"
+                class="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100"
+                >Çeviri Yönü</label
+              >
+              <select
+                id="langSelect"
+                class="w-full p-2 border border-gray-300 rounded bg-white text-gray-900 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              >
+                <option value="en|tr">İngilizce ➜ Türkçe</option>
+                <option value="tr|en">Türkçe ➜ İngilizce</option>
+              </select>
+            </div>
 
-          <!-- İngilizce Kelime -->
-          <div>
-            <label for="front" class="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100">İngilizce</label>
-            <div class="flex gap-2">
+            <!-- Source word input -->
+            <div>
+              <label
+                for="front"
+                class="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100"
+                >İngilizce</label
+              >
+              <div class="flex gap-2">
+                <input
+                  type="text"
+                  id="front"
+                  name="front"
+                  required
+                  class="flex-1 p-2 border border-gray-300 rounded bg-white text-gray-900 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-2 focus:ring-accent"
+                />
+                <button
+                  type="button"
+                  id="translateBtn"
+                  aria-label="Kelimeyi çevir"
+                  class="bg-white text-purple-700 hover:bg-purple-100 font-bold text-sm px-4 py-1 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow"
+                >
+                  🔁 Çevir
+                </button>
+              </div>
+            </div>
+
+            <!-- Translated word input -->
+            <div>
+              <label
+                for="back"
+                class="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100"
+                >Türkçe</label
+              >
               <input
                 type="text"
-                id="front"
-                name="front"
+                id="back"
+                name="back"
                 required
-                class="flex-1 p-2 border border-gray-300 rounded bg-white text-gray-900 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-2 focus:ring-accent"
+                class="w-full p-2 border border-gray-300 rounded bg-white text-gray-900 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-2 focus:ring-accent"
               />
-              <button
-                type="button"
-                id="translateBtn"
-                aria-label="Kelimeyi çevir"
-                class="bg-white text-purple-700 hover:bg-purple-100 font-bold text-sm px-4 py-1 rounded transition duration-300 ease-in-out transform hover:scale-105 shadow"
-              >
-                🔁 Çevir
-              </button>
             </div>
-          </div>
 
-          <!-- Türkçe Karşılık -->
-          <div>
-            <label for="back" class="block text-sm font-medium mb-1 text-gray-900 dark:text-gray-100">Türkçe</label>
-            <input
-              type="text"
-              id="back"
-              name="back"
-              required
-              class="w-full p-2 border border-gray-300 rounded bg-white text-gray-900 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-          </div>
+            <!-- Submit button -->
+            <button
+              type="submit"
+              class="w-full bg-primary text-white hover:bg-primary/90 text-lg font-bold py-2 rounded transition duration-300 transform hover:scale-105 shadow"
+            >
+              ➕ EKLE
+            </button>
 
-          <!-- Sabit Ekle Butonu -->
-          <button
-            type="submit"
-            class="w-full bg-primary text-white hover:bg-primary/90 text-lg font-bold py-2 rounded transition duration-300 transform hover:scale-105 shadow"
-          >
-            ➕ EKLE
-          </button>
-
-          <!-- Başarı Mesajı -->
-          <p id="successMessage" role="status" aria-live="polite" class="text-green-600 dark:text-green-400 text-sm font-semibold text-center hidden transition-all duration-300 ease-in-out">
-            ✅ Kelime kaydedildi!
-          </p>
-        </form>
-      </section>
+            <!-- Success message -->
+            <p
+              id="successMessage"
+              role="status"
+              aria-live="polite"
+              class="text-green-600 dark:text-green-400 text-sm font-semibold text-center hidden transition-all duration-300 ease-in-out"
+            >
+              ✅ Kelime kaydedildi!
+            </p>
+          </form>
+        </section>
       </div>
     </main>
 
-    <!-- FOOTER -->
     <footer class="p-4 text-center text-sm text-gray-500">
       © 2025 FlipLang. Tüm hakları saklıdır.
     </footer>
-   <!-- Sayfa en sonunda -->
-<script type="module" src="js/app.js"></script>
-<script type="module" src="js/add-word.js"></script>
 
-</body>
+    <!-- Scripts -->
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/add-word.js"></script>
+  </body>
 </html>

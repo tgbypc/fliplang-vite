@@ -1,195 +1,277 @@
 <!DOCTYPE html>
 <html lang="tr" class="">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>İstatistikler | FlipLang</title>
-  <link rel="stylesheet" href="./style.css" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            primary: "#A78BFA",       // Mor tonu (başlıklar, butonlar)
-            accent: "#FDE68A",        // Sarı tonu (vurgular, ikonlar)
-            surface: "#F9FAFB",       // Arka planlarda kullanılır
-            textMain: "#374151",      // Ana yazı rengi
-            textMuted: "#6B7280",     // Açıklama metinleri
-            logo: "#6366F1"           // FlipLang logosu için mavi-mor tonu
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>İstatistikler | FlipLang</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#A78BFA", // Mor tonu (başlıklar, butonlar)
+              accent: "#FDE68A", // Sarı tonu (vurgular, ikonlar)
+              surface: "#F9FAFB", // Arka planlarda kullanılır
+              textMain: "#374151", // Ana yazı rengi
+              textMuted: "#6B7280", // Açıklama metinleri
+              logo: "#6366F1", // FlipLang logosu için mavi-mor tonu
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              display: ["Poppins", "sans-serif"],
+            },
           },
-          fontFamily: {
-            sans: ["Inter", "sans-serif"],
-            display: ["Poppins", "sans-serif"]
-          }
-        }
-      }
-    };
-  </script>
-</head>
+        },
+      };
+    </script>
+  </head>
 
-<body class="min-h-screen font-sans text-gray-900 bg-white dark:bg-gray-900 dark:text-gray-100">
-
-  <!-- HEADER -->
-  <header
-  class="bg-beige-50/90 dark:bg-gray-900/80 backdrop-blur-md shadow-sm sticky top-0 z-50"
->
-  <nav
-    class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between"
+  <body
+    class="min-h-screen font-sans text-gray-900 bg-white dark:bg-gray-900 dark:text-gray-100"
   >
-    <a
-      href="index.html"
-      class="text-2xl font-display font-bold text-logo dark:text-white"
-      >📚 FlipLang</a
+    <header
+      class="bg-beige-50/90 dark:bg-gray-900/80 backdrop-blur-md shadow-sm sticky top-0 z-50"
     >
+      <nav
+        class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between"
+      >
+        <a
+          href="index.html"
+          class="text-2xl font-display font-bold text-logo dark:text-white"
+          >📚 FlipLang</a
+        >
 
-    <!-- Mobil Menü Toggle -->
-    <button
-      id="menuToggle"
-      class="sm:hidden text-xl focus:outline-none text-logo dark:text-white"
+        <button
+          id="menuToggle"
+          class="sm:hidden text-xl focus:outline-none text-logo dark:text-white"
+        >
+          ☰
+        </button>
+
+        <div
+          id="mobileMenu"
+          class="sm:hidden hidden flex flex-col gap-3 absolute top-16 right-4 left-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 z-50 transition-all duration-300"
+        >
+          <a
+            href="review.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >📖 Tekrar</a
+          >
+          <a
+            href="plans.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >🗓️ Plan</a
+          >
+
+          <a
+            href="add-word.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >➕ Kelime Ekle</a
+          >
+          <a
+            href="cards.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >🧠 Kartlar</a
+          >
+
+          <a
+            href="learned.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >✅ Öğrenilen</a
+          >
+          <a
+            href="stats.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >📊 İstatistik</a
+          >
+        </div>
+        <div class="hidden sm:flex gap-3 text-sm font-medium items-center">
+          <a
+            href="review.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Tekrar</a
+          >
+          <a
+            href="plans.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Plan</a
+          >
+          <a
+            href="add-word.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Kelime Ekle</a
+          >
+
+          <a
+            href="cards.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Kartlar</a
+          >
+
+          <a
+            href="learned.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Öğrenilenler</a
+          >
+          <a
+            href="stats.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >İstatistik</a
+          >
+        </div>
+
+        <button
+          id="themeToggle"
+          class="ml-4 px-2 py-1 text-sm bg-gradient-to-r from-indigo-500 to-yellow-400 hover:from-indigo-600 hover:to-yellow-500 text-white rounded shadow-sm transition"
+        >
+          🌗
+        </button>
+      </nav>
+    </header>
+
+    <main
+      class="flex flex-col items-center gap-10 px-4 py-10 w-full max-w-7xl mx-auto min-h-[80vh]"
     >
-      ☰
-    </button>
+      <h2
+        class="text-2xl md:text-3xl font-bold tracking-wide text-primary mb-6"
+      >
+        Öğrenme İlerlemen
+      </h2>
 
-    <!-- Açılır Menü Kutusu -->
-    <div
-      id="mobileMenu"
-      class="sm:hidden hidden flex flex-col gap-3 absolute top-16 right-4 left-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 z-50 transition-all duration-300"
-    >
-      <a
-        href="review.html"
-        class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
-        >📖 Tekrar</a
-      >
-      <a
-        href="plans.html"
-        class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
-        >🗓️ Plan</a
-      >
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+        <!-- Total cards -->
+        <div
+          class="bg-gradient-to-br from-white via-gray-100 to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 rounded-xl shadow p-6 text-center hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl"
+        >
+          <h3
+            class="text-sm md:text-base font-semibold text-textMain dark:text-white mb-2"
+          >
+            📦 Toplam Kart Sayısı
+          </h3>
+          <p
+            id="totalCards"
+            class="text-3xl font-bold text-textMain dark:text-white"
+          >
+            0
+          </p>
+        </div>
 
-      <a
-      href="add-word.html"
-      class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
-      >➕ Kelime Ekle</a
-    >
-      <a
-        href="cards.html"
-        class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
-        >🧠 Kartlar</a
-      >
-   
-      <a
-        href="learned.html"
-        class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
-        >✅ Öğrenilen</a
-      >
-      <a
-        href="stats.html"
-        class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
-        >📊 İstatistik</a
-      >
-    </div>
-    <div class="hidden sm:flex gap-3 text-sm font-medium items-center">
-      <a
-        href="review.html"
-        class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
-        >Tekrar</a
-      >
-      <a
-        href="plans.html"
-        class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
-        >Plan</a
-      >
-      <a
-      href="add-word.html"
-      class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
-      >Kelime Ekle</a
-      >
- 
-      <a
-        href="cards.html"
-        class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
-        >Kartlar</a
-      >
-   
-      <a
-        href="learned.html"
-        class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
-        >Öğrenilenler</a
-      >
-      <a
-        href="stats.html"
-        class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
-        >İstatistik</a
-      >
-    </div>
+        <!-- Total reviews (static) -->
+        <div
+          class="bg-gradient-to-br from-white via-gray-100 to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 rounded-xl shadow p-6 text-center hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl"
+        >
+          <h3
+            class="text-sm md:text-base font-semibold text-textMain dark:text-white mb-2"
+          >
+            🔁 Toplam Tekrar Sayısı
+          </h3>
+          <p
+            id="reviewedCards"
+            class="text-3xl font-bold text-textMain dark:text-white"
+          >
+            0
+          </p>
+        </div>
 
-    <button
-      id="themeToggle"
-      class="ml-4 px-2 py-1 text-sm bg-gradient-to-r from-indigo-500 to-yellow-400 hover:from-indigo-600 hover:to-yellow-500 text-white rounded shadow-sm transition"
-    >
-      🌗
-    </button>
-  </nav>
-</header>
-
-  <!-- MAIN -->
-  <main class="flex-1 p-8 flex flex-col items-center justify-center gap-10">
-
-    <h2 class="text-2xl md:text-3xl font-bold tracking-wide text-primary mb-6">Öğrenme İlerlemen</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
-
-      <!-- Toplam Kart -->
-      <div class="bg-gradient-to-br from-white via-gray-100 to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 rounded-xl shadow p-6 text-center hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl">
-        <h3 class="text-sm md:text-base font-semibold text-textMain dark:text-white mb-2">📦 Toplam Kart Sayısı</h3>
-        <p id="totalCards" class="text-3xl font-bold text-textMain dark:text-white">0</p>
-      </div>
-
-      <!-- Toplam Tekrar (şimdilik sabit) -->
-      <div class="bg-gradient-to-br from-white via-gray-100 to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 rounded-xl shadow p-6 text-center hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl">
-        <h3 class="text-sm md:text-base font-semibold text-textMain dark:text-white mb-2">🔁 Toplam Tekrar Sayısı</h3>
-        <p id="reviewedCards" class="text-3xl font-bold text-textMain dark:text-white">0</p>
-      </div>
-
-      <!-- Kutu Dağılımı -->
-      <div class="bg-gradient-to-br from-white via-gray-100 to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 rounded-xl shadow p-6 col-span-full hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl">
-        <h3 class="text-sm md:text-base font-semibold text-textMain dark:text-white mb-4 text-center">📊 Kutulara Göre Dağılım</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 justify-center text-white text-center">
-          <div class="bg-orange-100 dark:bg-orange-300 text-orange-800 dark:text-orange-900 p-4 rounded-2xl w-full hover:shadow-lg transition duration-300 text-center">
-            <p class="text-sm font-semibold text-textMain dark:text-white mb-1">📥 Yeni Kartlar</p>
-            <p id="box1" class="text-3xl font-bold text-textMain dark:text-white">0</p>
-          </div>
-          <div class="bg-yellow-100 dark:bg-yellow-300 text-yellow-800 dark:text-yellow-900 p-4 rounded-2xl w-full hover:shadow-lg transition duration-300 text-center">
-            <p class="text-sm font-semibold text-textMain dark:text-white mb-1">⏳ 3 Günlük Tekrar</p>
-            <p id="box2" class="text-3xl font-bold text-textMain dark:text-white">0</p>
-          </div>
-          <div class="bg-green-100 dark:bg-green-300 text-green-800 dark:text-green-900 p-4 rounded-2xl w-full hover:shadow-lg transition duration-300 text-center">
-            <p class="text-sm font-semibold text-textMain dark:text-white mb-1">📆 Haftalık Tekrar</p>
-            <p id="box3" class="text-3xl font-bold text-textMain dark:text-white">0</p>
-          </div>
-          <div class="bg-blue-100 dark:bg-blue-300 text-blue-800 dark:text-blue-900 p-4 rounded-2xl w-full hover:shadow-lg transition duration-300 text-center">
-            <p class="text-sm font-semibold text-textMain dark:text-white mb-1">🗓 1 Aylık Tekrar</p>
-            <p id="box4" class="text-3xl font-bold text-textMain dark:text-white">0</p>
-          </div>
-          <div class="bg-purple-100 dark:bg-purple-300 text-purple-800 dark:text-purple-900 p-4 rounded-2xl w-full hover:shadow-lg transition duration-300 text-center">
-            <p class="text-sm font-semibold text-textMain dark:text-white mb-1">✅ Öğrenilenler</p>
-            <p id="box5" class="text-3xl font-bold text-textMain dark:text-white">0</p>
+        <!-- Box distribution -->
+        <div
+          class="bg-gradient-to-br from-white via-gray-100 to-white dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 rounded-xl shadow p-6 col-span-full mt-6 hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl"
+        >
+          <h3
+            class="text-sm md:text-base font-semibold text-textMain dark:text-white mb-4 text-center"
+          >
+            📊 Kutulara Göre Dağılım
+          </h3>
+          <div
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 justify-center text-white text-center"
+          >
+            <div
+              class="bg-orange-100 dark:bg-orange-300 text-orange-800 dark:text-orange-900 p-4 rounded-2xl w-full hover:shadow-lg transition duration-300 text-center"
+            >
+              <p
+                class="text-sm font-semibold text-textMain dark:text-white mb-1"
+              >
+                📥 Yeni Kartlar
+              </p>
+              <p
+                id="box1"
+                class="text-3xl font-bold text-textMain dark:text-white"
+              >
+                0
+              </p>
+            </div>
+            <div
+              class="bg-yellow-100 dark:bg-yellow-300 text-yellow-800 dark:text-yellow-900 p-4 rounded-2xl w-full hover:shadow-lg transition duration-300 text-center"
+            >
+              <p
+                class="text-sm font-semibold text-textMain dark:text-white mb-1"
+              >
+                ⏳ 3 Günlük Tekrar
+              </p>
+              <p
+                id="box2"
+                class="text-3xl font-bold text-textMain dark:text-white"
+              >
+                0
+              </p>
+            </div>
+            <div
+              class="bg-green-100 dark:bg-green-300 text-green-800 dark:text-green-900 p-4 rounded-2xl w-full hover:shadow-lg transition duration-300 text-center"
+            >
+              <p
+                class="text-sm font-semibold text-textMain dark:text-white mb-1"
+              >
+                📆 Haftalık Tekrar
+              </p>
+              <p
+                id="box3"
+                class="text-3xl font-bold text-textMain dark:text-white"
+              >
+                0
+              </p>
+            </div>
+            <div
+              class="bg-blue-100 dark:bg-blue-300 text-blue-800 dark:text-blue-900 p-4 rounded-2xl w-full hover:shadow-lg transition duration-300 text-center"
+            >
+              <p
+                class="text-sm font-semibold text-textMain dark:text-white mb-1"
+              >
+                🗓 1 Aylık Tekrar
+              </p>
+              <p
+                id="box4"
+                class="text-3xl font-bold text-textMain dark:text-white"
+              >
+                0
+              </p>
+            </div>
+            <div
+              class="bg-purple-100 dark:bg-purple-300 text-purple-800 dark:text-purple-900 p-4 rounded-2xl w-full hover:shadow-lg transition duration-300 text-center"
+            >
+              <p
+                class="text-sm font-semibold text-textMain dark:text-white mb-1"
+              >
+                ✅ Öğrenilenler
+              </p>
+              <p
+                id="box5"
+                class="text-3xl font-bold text-textMain dark:text-white"
+              >
+                0
+              </p>
+            </div>
           </div>
         </div>
       </div>
+    </main>
 
-    </div>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="p-4 text-center text-sm text-gray-500">
-    © 2025 FlipLang. Tüm hakları saklıdır.
-  </footer>
-  <script type="module" src="js/app.js"></script>
-  <script type="module" src="js/stats.js"></script>
-</body>
-
+    <footer class="p-4 text-center text-sm text-gray-500">
+      © 2025 FlipLang. Tüm hakları saklıdır.
+    </footer>
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/stats.js"></script>
+  </body>
 </html>

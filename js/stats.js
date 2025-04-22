@@ -3,8 +3,9 @@ function getStoredCards() {
 }
 
 function countCardsByBox(cards) {
+  // Count by box
   const counts = { box1: 0, box2: 0, box3: 0, box4: 0, box5: 0 };
-  cards.forEach(c => {
+  cards.forEach((c) => {
     if (c.box >= 1 && c.box <= 5) {
       counts[`box${c.box}`]++;
     }
@@ -18,6 +19,7 @@ function updateStat(id, value) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Render stats
   function renderStats() {
     const storedCards = getStoredCards();
     const total = storedCards.length;
@@ -26,7 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (total === 0) {
       const emptyMessage = document.createElement("p");
       emptyMessage.textContent = "Henüz eklenmiş kart bulunamadı.";
-      emptyMessage.className = "mt-6 text-center text-sm text-textMuted dark:text-textMuted";
+      emptyMessage.className =
+        "mt-6 text-center text-sm text-textMuted dark:text-textMuted";
       document.querySelector("main").appendChild(emptyMessage);
     }
 
@@ -37,7 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
     updateStat("box4", counts.box4);
     updateStat("box5", counts.box5);
 
-    const reviewedCount = counts.box2 + counts.box3 * 2 + counts.box4 * 3 + counts.box5 * 4;
+    const reviewedCount =
+      counts.box2 + counts.box3 * 2 + counts.box4 * 3 + counts.box5 * 4;
     updateStat("reviewedCards", reviewedCount);
   }
 

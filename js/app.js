@@ -1,15 +1,14 @@
-// js/app.js
-
-// Tema Başlatma
-// import { ... } varsa diğer dosyalardan sonra eklenecek
+// Get cards from localStorage
 function getStoredCards() {
   return JSON.parse(localStorage.getItem("cards")) || [];
 }
 
+// Get today's date (YYYY-MM-DD)
 function getTodayDate() {
   return new Date().toISOString().split("T")[0];
 }
 
+// Set theme from localStorage
 function initTheme() {
   let currentTheme = localStorage.getItem("theme");
   if (!currentTheme) {
@@ -26,52 +25,73 @@ function initTheme() {
   }
 }
 
-// Tema Toggle
+// Toggle theme
 function toggleTheme() {
   document.documentElement.classList.toggle("dark");
-  const newTheme = document.documentElement.classList.contains("dark") ? "dark" : "light";
+  const newTheme = document.documentElement.classList.contains("dark")
+    ? "dark"
+    : "light";
   localStorage.setItem("theme", newTheme);
 }
 
-// Günlük tekrar kontrolü (Bildirim)
+// Show notifications for due cards
 function checkDailyReviews() {
   const storedCards = getStoredCards();
   const today = getTodayDate();
-  const hasTodayCards = storedCards.some(card => card.nextReview === today);
+  const dueCards = storedCards.filter((card) => card.nextReview === today);
 
   const notificationEl = document.getElementById("notification");
-  if (hasTodayCards && notificationEl) {
+  const notificationCount = document.getElementById("notificationCount");
+
+  // Show in-app dashboard notification
+  if (dueCards.length > 0 && notificationEl) {
     notificationEl.classList.remove("hidden");
+    if (notificationCount) {
+      notificationCount.textContent = dueCards.length;
+    }
+  }
+
+  // Show browser notification (if permission is granted)
+  if ("Notification" in window && Notification.permission !== "denied") {
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted" && dueCards.length > 0) {
+        new Notification("📚 FlipLang", {
+          body: `You have ${dueCards.length} word(s) to review today.`,
+          icon: "assets/icon.png",
+        });
+      }
+    });
   }
 }
 
-// DOM yüklendiğinde çalıştır
+// Run after DOM loads
 document.addEventListener("DOMContentLoaded", () => {
-  // Tema kontrolü ve uygulanması (her sayfada)
+  // Apply saved theme preference
   initTheme();
 
-  // Tema butonu varsa dinleyici ekle
+  // Theme toggle button listener
   const themeToggle = document.getElementById("themeToggle");
   if (themeToggle) themeToggle.addEventListener("click", toggleTheme);
 
-  // Eğer sayfada "add-word" formu varsa, form gönderimini engelle ve işlemi burada yap
+  // Prevent form submission reload if add-word form exists
   const addForm = document.getElementById("wordForm");
   if (addForm) {
     addForm.addEventListener("submit", (e) => {
-      e.preventDefault(); // Sayfa yenilemeyi engelle
+      e.preventDefault();
     });
   }
 
-  // Bildirim kontrolü sadece notification elementi varsa çalışsın
+  // Check notifications if notification element exists
   if (document.getElementById("notification")) {
     checkDailyReviews();
   }
 
+  // Load dashboard mini stats if dashboard is present
   if (document.getElementById("statToday")) {
-    loadDashboardStats(); // Load mini stats on dashboard
+    loadDashboardStats();
   }
 
-  // Mobil menü toggle (hamburger)
+  // Mobile menu toggle (hamburger)
   const menuToggle = document.getElementById("menuToggle");
   const mobileMenu = document.getElementById("mobileMenu");
 
@@ -82,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Ortak mesaj gösterimi
+// Toast message handler
 export function showMessage(message, type = "success") {
   const existing = document.getElementById("apiMessage");
   if (existing) existing.remove();
@@ -98,14 +118,18 @@ export function showMessage(message, type = "success") {
   setTimeout(() => msg.remove(), 3000);
 }
 
+// Load mini stats to dashboard
 function loadDashboardStats() {
   const storedCards = getStoredCards();
   const today = getTodayDate();
 
-  const todayCount = storedCards.filter(card => card.nextReview === today).length;
-  const learnedCount = storedCards.filter(card => card.box === 4).length;
+  const todayCount = storedCards.filter(
+    (card) => card.nextReview === today,
+  ).length;
+  const learnedCount = storedCards.filter((card) => card.box === 4).length;
   const totalCount = storedCards.length;
-  const progressPercent = totalCount > 0 ? Math.round((learnedCount / totalCount) * 100) : 0;
+  const progressPercent =
+    totalCount > 0 ? Math.round((learnedCount / totalCount) * 100) : 0;
 
   const todayEl = document.getElementById("statToday");
   const learnedEl = document.getElementById("statLearned");

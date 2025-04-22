@@ -1,5 +1,5 @@
-import { cards as defaultCards } from './data.js';
-import { getNextReviewDate, getBoxLabel } from './leitner.js';
+import { cards as defaultCards } from "./data.js";
+import { getNextReviewDate, getBoxLabel } from "./leitner.js";
 
 function getTodayDate() {
   return new Date().toISOString().split("T")[0];
@@ -11,7 +11,7 @@ function getStoredCards() {
 
 function updateCardInStorage(card) {
   const allCards = getStoredCards();
-  const indexInStorage = allCards.findIndex(c => c.id === card.id);
+  const indexInStorage = allCards.findIndex((c) => c.id === card.id);
   if (indexInStorage !== -1) {
     allCards[indexInStorage] = card;
     localStorage.setItem("cards", JSON.stringify(allCards));
@@ -48,7 +48,7 @@ if (!localStorage.getItem("cards")) {
   localStorage.setItem("cards", JSON.stringify(defaultCards));
 }
 
-// Progress ve kart alanlarını seçiyoruz
+// Select progress and card elements
 const progressCount = document.getElementById("progressCount");
 const progressBar = document.getElementById("progressBar");
 const congratsMessage = document.getElementById("completionMessage");
@@ -56,11 +56,11 @@ const progressSection = document.getElementById("progressContainer");
 const cardContainer = document.getElementById("cardContainer");
 const infoMessage = document.getElementById("infoMessage");
 
-// Başlangıç değişkenleri
+// Initial variables
 let reviewedCount = 0;
 let todaysCards = [];
 
-// Progress Bar güncelleme
+// Update the Progress Bar
 function updateProgress() {
   progressCount.textContent = reviewedCount;
   const percent = (reviewedCount / todaysCards.length) * 100;
@@ -79,7 +79,7 @@ function updateProgress() {
   }
 }
 
-// Kartları yükleyen fonksiyon
+// Function to load the cards
 export function loadPlannedReview(day) {
   cardContainer.innerHTML = "";
   reviewedCount = 0;
@@ -92,12 +92,14 @@ export function loadPlannedReview(day) {
 
   const allCards = getStoredCards();
   todaysCards = allCards.filter(
-    (card) => card.nextReview === today.toISOString().split("T")[0] && card.box === getBoxNumber(day)
+    (card) =>
+      card.nextReview === today.toISOString().split("T")[0] &&
+      card.box === getBoxNumber(day),
   );
 
-
   if (todaysCards.length === 0) {
-    infoMessage.textContent = "Seçilen aralıkta tekrar edilecek kart bulunamadı.";
+    infoMessage.textContent =
+      "Seçilen aralık için tekrar edilecek kart bulunamadı.";
     infoMessage.classList.remove("hidden");
     cardContainer.classList.add("hidden");
     progressSection.classList.add("hidden");
@@ -109,7 +111,7 @@ export function loadPlannedReview(day) {
   showCard(0);
 }
 
-// Kartları sırayla göster
+// Show cards sequentially
 function showCard(index) {
   const card = todaysCards[index];
   if (!card) {
@@ -121,8 +123,9 @@ function showCard(index) {
   cardContainer.innerHTML = "";
 
   const cardEl = document.createElement("div");
-  cardEl.className = "w-full max-w-md bg-purple-100 dark:bg-purple-300 text-gray-800 dark:text-gray-900 p-6 rounded-xl shadow-xl text-center mx-auto transition-all";
-  
+  cardEl.className =
+    "w-full max-w-md bg-purple-100 dark:bg-purple-300 text-gray-800 dark:text-gray-900 p-6 rounded-xl shadow-xl text-center mx-auto transition-all";
+
   cardEl.classList.add("opacity-0");
   setTimeout(() => {
     cardEl.classList.remove("opacity-0");
@@ -149,11 +152,11 @@ function showCard(index) {
       card.box = 4;
       card.nextReview = getNextReviewDate(4);
     } else if (card.box === 4) {
-      card.box = 5; // Öğrenilen olarak işaretle
+      card.box = 5; // Mark as learned
       card.nextReview = null;
     }
 
-    // Güncellenen kartı kaydet
+    // Save the updated card
     updateCardInStorage(card);
 
     showCard(index + 1);
@@ -161,7 +164,7 @@ function showCard(index) {
 
   dontKnowBtn.addEventListener("click", () => {
     backSection.classList.remove("hidden");
-    // Leitner sistemine göre kutu 1'e düşür ve yarın tekrar et
+    // Leitner rule: move to box 1 for review tomorrow
     card.box = 1;
     card.nextReview = getNextReviewDate(1);
 
@@ -181,7 +184,7 @@ function showCard(index) {
   cardContainer.appendChild(cardEl);
 }
 
-// Gün sayısına göre Leitner kutusu
+// Return box number based on day value
 function getBoxNumber(day) {
   if (day === 3) return 2;
   if (day === 7) return 3;
@@ -189,15 +192,15 @@ function getBoxNumber(day) {
   return 1;
 }
 
-// URL'den gün parametresini kontrol et
+// Parse 'day' value from URL
 const urlParams = new URLSearchParams(window.location.search);
 const autoDay = parseInt(urlParams.get("day"));
 if ([3, 7, 30].includes(autoDay)) {
   loadPlannedReview(autoDay);
 }
 
-// Dropdown değiştiğinde kartları yükle
-document.querySelectorAll(".day-btn").forEach(btn => {
+// Reload cards on interval button click
+document.querySelectorAll(".day-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
     const selectedDay = parseInt(btn.value);
     loadPlannedReview(selectedDay);
