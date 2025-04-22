@@ -1,3 +1,4 @@
+import { getBoxLabel } from "./leitner.js";
 const myCardsSection = document.getElementById("myCardsSection");
 const apiCardsSection = document.getElementById("apiCardsSection");
 const myCardsTab = document.getElementById("myCardsTab");
@@ -5,27 +6,33 @@ const apiCardsTab = document.getElementById("apiCardsTab");
 
 import { showMessage } from "./app.js";
 
-myCardsTab.addEventListener("click", () => {
-  myCardsSection.classList.remove("hidden");
-  apiCardsSection.classList.add("hidden");
-  myCardsTab.classList.add("bg-primary", "text-white");
-  apiCardsTab.classList.remove("bg-primary", "text-white");
-});
+function getStoredCards() {
+  return JSON.parse(localStorage.getItem("cards")) || [];
+}
 
-apiCardsTab.addEventListener("click", () => {
-  apiCardsSection.classList.remove("hidden");
-  myCardsSection.classList.add("hidden");
-  apiCardsTab.classList.add("bg-primary", "text-white");
-  myCardsTab.classList.remove("bg-primary", "text-white");
-});
+function addCardToStorage(card) {
+  const stored = getStoredCards();
+  stored.push(card);
+  localStorage.setItem("cards", JSON.stringify(stored));
+}
 
-// LocalStorage Kartları
-const storedCards = JSON.parse(localStorage.getItem("cards")) || [];
-const myCardsWrapper = document.getElementById("myCardsWrapper");
+function toggleTabs(showMyCards) {
+  if (showMyCards) {
+    myCardsSection.classList.remove("hidden");
+    apiCardsSection.classList.add("hidden");
+    myCardsTab.classList.add("bg-primary", "text-white");
+    apiCardsTab.classList.remove("bg-primary", "text-white");
+  } else {
+    apiCardsSection.classList.remove("hidden");
+    myCardsSection.classList.add("hidden");
+    apiCardsTab.classList.add("bg-primary", "text-white");
+    myCardsTab.classList.remove("bg-primary", "text-white");
+  }
+}
 
-storedCards.forEach(card => {
+function createMyCard(card) {
   const div = document.createElement("div");
-  div.className = "flex justify-between items-center bg-white dark:bg-white text-gray-900 dark:text-gray-900 border border-gray-200 dark:border-gray-300 p-4 rounded-lg shadow hover:shadow-md transition";
+  div.className = "flex justify-between items-center bg-white text-gray-900 dark:bg-white dark:text-gray-800 border border-gray-200 dark:border-gray-300 p-4 rounded-lg shadow hover:shadow-md transition";
 
   div.innerHTML = `
     <div>
@@ -36,12 +43,54 @@ storedCards.forEach(card => {
   `;
 
   div.querySelector("button").addEventListener("click", () => {
-    const updated = storedCards.filter(c => c.id !== card.id);
+    const updated = getStoredCards().filter(c => c.id !== card.id);
     localStorage.setItem("cards", JSON.stringify(updated));
     div.remove();
   });
 
-  myCardsWrapper.appendChild(div);
+  return div;
+}
+
+function createApiCard(item) {
+  const div = document.createElement("div");
+  div.className = "flex justify-between items-center bg-white text-gray-900 dark:bg-white dark:text-gray-800 border border-gray-200 dark:border-gray-300 p-4 rounded-lg shadow hover:shadow-md transition";
+
+  div.innerHTML = `
+    <div>
+      <p class="font-bold text-primary text-base">${item.en} ➜ ${item.tr}</p>
+    </div>
+    <button class="ml-4 px-3 py-1 bg-primary text-white rounded text-sm hover:bg-indigo-700 dark:hover:bg-indigo-600 transition">➕ Ekle</button>
+  `;
+
+  div.querySelector("button").addEventListener("click", () => {
+    const stored = getStoredCards();
+    const exists = stored.find(c => c.front === item.en);
+    if (!exists) {
+      addCardToStorage({
+        id: Date.now(),
+        front: item.en,
+        back: item.tr,
+        box: 1,
+        reviewedDate: new Date().toISOString().split("T")[0],
+        nextReview: new Date().toISOString().split("T")[0]
+      });
+      showMessage(`✅ "${item.en}" kelimesi eklendi!`, "success");
+    } else {
+      showMessage(`⚠️ "${item.en}" zaten eklenmiş.`, "warning");
+    }
+  });
+
+  return div;
+}
+
+myCardsTab.addEventListener("click", () => toggleTabs(true));
+apiCardsTab.addEventListener("click", () => toggleTabs(false));
+
+// LocalStorage Kartları
+const myCardsWrapper = document.getElementById("myCardsWrapper");
+
+getStoredCards().forEach(card => {
+  myCardsWrapper.appendChild(createMyCard(card));
 });
 
 async function fetchApiWords() {
@@ -58,42 +107,9 @@ async function fetchApiWords() {
     const daily = data.words.slice(5, 10);
     const phrases = data.phrases;
 
-    function createCard(item) {
-      const div = document.createElement("div");
-      div.className = "flex justify-between items-center bg-white dark:bg-white text-gray-900 dark:text-gray-900 border border-gray-200 dark:border-gray-300 p-4 rounded-lg shadow hover:shadow-md transition";
-
-      div.innerHTML = `
-        <div>
-          <p class="font-bold text-primary text-base">${item.en} ➜ ${item.tr}</p>
-        </div>
-        <button class="ml-4 px-3 py-1 bg-primary text-white rounded text-sm hover:bg-indigo-700 transition">➕ Ekle</button>
-      `;
-
-      div.querySelector("button").addEventListener("click", () => {
-        const stored = JSON.parse(localStorage.getItem("cards")) || [];
-        const exists = stored.find(c => c.front === item.en);
-        if (!exists) {
-          stored.push({
-            id: Date.now(),
-            front: item.en,
-            back: item.tr,
-            box: 1,
-            reviewedDate: new Date().toISOString().split("T")[0],
-            nextReview: new Date().toISOString().split("T")[0]
-          });
-          localStorage.setItem("cards", JSON.stringify(stored));
-          showMessage(`✅ "${item.en}" kelimesi eklendi!`, "success");
-        } else {
-          showMessage(`⚠️ "${item.en}" zaten eklenmiş.`, "warning");
-        }
-      });
-
-      return div;
-    }
-
-    greetings.forEach(item => greetingWrapper.appendChild(createCard(item)));
-    daily.forEach(item => dailyWrapper.appendChild(createCard(item)));
-    phrases.forEach(item => phrasesWrapper.appendChild(createCard(item)));
+    greetings.forEach(item => greetingWrapper.appendChild(createApiCard(item)));
+    daily.forEach(item => dailyWrapper.appendChild(createApiCard(item)));
+    phrases.forEach(item => phrasesWrapper.appendChild(createApiCard(item)));
 
   } catch (error) {
     console.error("API verisi alınamadı:", error);
@@ -108,14 +124,3 @@ document.querySelectorAll(".toggle-set").forEach(btn => {
     target.classList.toggle("hidden");
   });
 });
-
-function getBoxLabel(box) {
-  switch (box) {
-    case 1: return "Bugünkü tekrar";
-    case 2: return "3 gün sonra";
-    case 3: return "1 hafta sonra";
-    case 4: return "1 ay sonra";
-    case 5: return "2 ay sonra";
-    default: return "-";
-  }
-}

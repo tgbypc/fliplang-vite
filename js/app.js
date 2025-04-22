@@ -1,6 +1,15 @@
 // js/app.js
 
 // Tema Başlatma
+// import { ... } varsa diğer dosyalardan sonra eklenecek
+function getStoredCards() {
+  return JSON.parse(localStorage.getItem("cards")) || [];
+}
+
+function getTodayDate() {
+  return new Date().toISOString().split("T")[0];
+}
+
 function initTheme() {
   let currentTheme = localStorage.getItem("theme");
   if (!currentTheme) {
@@ -26,8 +35,8 @@ function toggleTheme() {
 
 // Günlük tekrar kontrolü (Bildirim)
 function checkDailyReviews() {
-  const storedCards = JSON.parse(localStorage.getItem("cards")) || [];
-  const today = new Date().toISOString().split("T")[0];
+  const storedCards = getStoredCards();
+  const today = getTodayDate();
   const hasTodayCards = storedCards.some(card => card.nextReview === today);
 
   const notificationEl = document.getElementById("notification");
@@ -45,12 +54,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const themeToggle = document.getElementById("themeToggle");
   if (themeToggle) themeToggle.addEventListener("click", toggleTheme);
 
+  // Eğer sayfada "add-word" formu varsa, form gönderimini engelle ve işlemi burada yap
+  const addForm = document.getElementById("wordForm");
+  if (addForm) {
+    addForm.addEventListener("submit", (e) => {
+      e.preventDefault(); // Sayfa yenilemeyi engelle
+    });
+  }
+
   // Bildirim kontrolü sadece notification elementi varsa çalışsın
   if (document.getElementById("notification")) {
     checkDailyReviews();
   }
 
-  loadDashboardStats(); // Load mini stats on dashboard
+  if (document.getElementById("statToday")) {
+    loadDashboardStats(); // Load mini stats on dashboard
+  }
+
+  // Mobil menü toggle (hamburger)
+  const menuToggle = document.getElementById("menuToggle");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+  }
 });
 
 // Ortak mesaj gösterimi
@@ -70,8 +99,8 @@ export function showMessage(message, type = "success") {
 }
 
 function loadDashboardStats() {
-  const storedCards = JSON.parse(localStorage.getItem("cards")) || [];
-  const today = new Date().toISOString().split("T")[0];
+  const storedCards = getStoredCards();
+  const today = getTodayDate();
 
   const todayCount = storedCards.filter(card => card.nextReview === today).length;
   const learnedCount = storedCards.filter(card => card.box === 4).length;
@@ -82,7 +111,7 @@ function loadDashboardStats() {
   const learnedEl = document.getElementById("statLearned");
   const progressEl = document.getElementById("statProgress");
 
-  if (todayEl) todayEl.textContent = todayCount.toString();
-  if (learnedEl) learnedEl.textContent = learnedCount.toString();
+  if (todayEl) todayEl.textContent = todayCount;
+  if (learnedEl) learnedEl.textContent = learnedCount;
   if (progressEl) progressEl.textContent = `%${progressPercent}`;
 }

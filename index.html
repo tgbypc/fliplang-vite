@@ -1,111 +1,272 @@
 <!DOCTYPE html>
 <html lang="tr" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlipLang</title>
+    <link rel="stylesheet" href="./style.css" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FlipLang</title>
-  <link rel="stylesheet" href="./style.css" />
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <script>
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            primary: "#4F46E5",
-            accent: "#F59E0B",
-          },
-          fontFamily: {
-            sans: ["Inter", "sans-serif"],
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#A78BFA", // Mor tonu (başlıklar, butonlar)
+              accent: "#FDE68A", // Sarı tonu (vurgular, ikonlar)
+              surface: "#F9FAFB", // Arka planlarda kullanılır
+              textMain: "#374151", // Ana yazı rengi
+              textMuted: "#6B7280", // Açıklama metinleri
+              logo: "#6366F1", // FlipLang logosu için mavi-mor tonu
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              display: ["Poppins", "sans-serif"],
+            },
           },
         },
-      },
-    };
-  </script>
-  <link rel="icon" href="assets/images/favicon.ico" />
-</head>
+      };
+    </script>
+    <link rel="icon" href="assets/images/favicon.ico" />
+  </head>
 
-<body class="min-h-screen font-sans text-gray-900 bg-white dark:bg-gray-900 dark:text-gray-100">
+  <body
+    class="min-h-screen font-sans text-gray-900 bg-white dark:bg-gray-900 dark:text-gray-100"
+  >
+    <!-- HEADER -->
+    <header
+      class="bg-beige-50/90 dark:bg-gray-900/80 backdrop-blur-md shadow-sm sticky top-0 z-50"
+    >
+      <nav
+        class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between"
+      >
+        <a
+          href="index.html"
+          class="text-2xl font-display font-bold text-logo dark:text-white"
+          >📚 FlipLang</a
+        >
 
-  <!-- HEADER -->
-  <header class="p-4 bg-white shadow flex justify-between items-center">
-    <a href="index.html" class="no-underline hover:no-underline">
-      <h1 class="text-xl font-bold text-primary">📚 FlipLang</h1>
-    </a>
-    <button id="themeToggle"
-      class="text-sm bg-primary text-white px-3 py-1 rounded hover:bg-indigo-700 transition">🌗 Tema</button>
-  </header>
+        <!-- Mobil Menü Toggle -->
+        <button
+          id="menuToggle"
+          class="sm:hidden text-xl focus:outline-none text-logo dark:text-white"
+        >
+          ☰
+        </button>
 
-  <!-- MAIN -->
-  <main class="flex flex-col lg:flex-row gap-6 p-10 w-full max-w-7xl mx-auto min-h-[80vh]">
+        <!-- Açılır Menü Kutusu -->
+        <div
+          id="mobileMenu"
+          class="sm:hidden hidden flex flex-col gap-3 absolute top-16 right-4 left-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 z-50 transition-all duration-300"
+        >
+          <a
+            href="review.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >📖 Tekrar</a
+          >
+          <a
+            href="plans.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >🗓️ Plan</a
+          >
 
-    <!-- Sol Sütun -->
-    <section class="flex flex-col justify-between w-full lg:w-1/2 gap-6">
-      <!-- FlipLang Nedir -->
-      <div class="bg-indigo-50 dark:bg-indigo-800 border-l-4 border-indigo-400 p-6 rounded-lg shadow w-full h-full">
-        <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-200 mb-2">📚 FlipLang Nedir?</h2>
-        <p class="text-sm text-indigo-900 dark:text-indigo-100">
-          FlipLang, dil öğrenmeyi eğlenceli ve etkili hale getiren bir platformdur. Leitner sistemi sayesinde öğrenilen kelimeler belirli aralıklarla tekrar edilir ve uzun süreli hafızaya yerleşmesi sağlanır. Uygulama, minimal tasarımı ve kullanıcı dostu arayüzüyle dil öğrenme sürecini hızlandırır.
-        </p>
-        <ul class="mt-3 text-sm list-disc list-inside text-gray-600 dark:text-gray-400">
-          <li>Günde 5 dakikada kalıcı öğrenme</li>
-          <li>3-7-30 gün aralıklı tekrar sistemi</li>
-          <li>Bildirimlerle unutmayı önle</li>
-        </ul>
-      </div>
-
-      <!-- Günlük İstatistik -->
-      <div class="bg-pink-100 dark:bg-pink-900 p-6 rounded-lg shadow text-pink-900 dark:text-pink-100 w-full">
-        <h2 class="text-xl font-semibold mb-2">📊 Günlük İstatistik</h2>
-        <ul class="space-y-2 text-sm">
-          <li>🌱 Bugünkü tekrar: <strong><span id="statToday">0</span></strong></li>
-          <li>✅ Öğrenilen kelime: <strong><span id="statLearned">0</span></strong></li>
-          <li>📦 Kutu doluluğu: <strong><span id="statProgress">%0</span></strong></li>
-        </ul>
-        <a href="stats.html" class="text-sm text-primary underline hover:text-indigo-600 mt-4 block">📊 Ayrıntılı istatistikleri görüntüle</a>
-      </div>
-    </section>
-
-    <!-- Sağ Sütun -->
-    <section class="w-full lg:w-1/2 bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow flex flex-col justify-start">
-      <h2 class="text-2xl font-bold text-primary mb-6">🚀 Başla ve Geliş!</h2>
-      <div class="flex flex-col gap-4 w-full">
-        <div onclick="location.href='review.html'" class="w-full p-4 rounded-xl bg-orange-500 hover:bg-orange-700 text-white transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1">
-          <h3 class="text-md font-semibold mb-1 flex items-center gap-2"><span class="text-2xl">🔁</span> <div class="text-sm">Bugünkü Tekrar</div></h3>
-          <p class="text-sm text-orange-100">Günlük kelimelerini tekrar et</p>
+          <a
+          href="add-word.html"
+          class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+          >➕ Kelime Ekle</a
+        >
+          <a
+            href="cards.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >🧠 Kartlar</a
+          >
+       
+          <a
+            href="learned.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >✅ Öğrenilen</a
+          >
+          <a
+            href="stats.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >📊 İstatistik</a
+          >
         </div>
-        <div onclick="location.href='plans.html'" class="w-full p-4 rounded-xl bg-green-500 hover:bg-green-700 text-white transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1">
-          <h3 class="text-md font-semibold mb-1 flex items-center gap-2"><span class="text-2xl">🗓️</span> <div class="text-sm">Planlı Tekrarlar</div></h3>
-          <p class="text-sm text-green-100">3-7-30 gün tekrar planı</p>
+        <div class="hidden sm:flex gap-3 text-sm font-medium items-center">
+          <a
+            href="review.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Tekrar</a
+          >
+          <a
+            href="plans.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Plan</a
+          >
+          <a
+          href="add-word.html"
+          class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+          >Kelime Ekle</a
+          >
+     
+          <a
+            href="cards.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Kartlar</a
+          >
+       
+          <a
+            href="learned.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Öğrenilenler</a
+          >
+          <a
+            href="stats.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >İstatistik</a
+          >
         </div>
-        <div onclick="location.href='add.html'" class="w-full p-4 rounded-xl bg-blue-500 hover:bg-blue-700 text-white transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1">
-          <h3 class="text-md font-semibold mb-1 flex items-center gap-2"><span class="text-2xl">➕</span> <div class="text-sm">Yeni Kelime Ekle</div></h3>
-          <p class="text-sm text-blue-100">Kendi kelimelerini oluştur</p>
+
+        <button
+          id="themeToggle"
+          class="ml-4 px-2 py-1 text-sm bg-gradient-to-r from-indigo-500 to-yellow-400 hover:from-indigo-600 hover:to-yellow-500 text-white rounded shadow-sm transition"
+        >
+          🌗
+        </button>
+      </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main
+      class="flex flex-col lg:flex-row gap-6 p-10 w-full max-w-7xl mx-auto min-h-[80vh]"
+    >
+      <!-- Sol Sütun -->
+      <section class="flex flex-col justify-between w-full lg:w-1/2 gap-6">
+        <!-- FlipLang Nedir -->
+        <section
+          aria-labelledby="what-is-fliplang"
+          class="bg-indigo-50 dark:bg-indigo-800 border-l-4 border-indigo-400 p-6 rounded-lg shadow w-full h-full"
+        >
+          <h2
+            id="what-is-fliplang"
+            class="text-xl font-bold text-indigo-700 dark:text-indigo-200 mb-2"
+          >
+            📚 FlipLang Nedir?
+          </h2>
+          <p class="text-sm text-indigo-900 dark:text-indigo-100">
+            FlipLang, dil öğrenmeyi eğlenceli ve etkili hale getiren bir
+            platformdur. Leitner sistemi sayesinde öğrenilen kelimeler belirli
+            aralıklarla tekrar edilir ve uzun süreli hafızaya yerleşmesi
+            sağlanır. Uygulama, minimal tasarımı ve kullanıcı dostu arayüzüyle
+            dil öğrenme sürecini hızlandırır.
+          </p>
+          <ul
+            class="mt-3 text-sm list-disc list-inside text-gray-600 dark:text-gray-400"
+          >
+            <li>Günde 5 dakikada kalıcı öğrenme</li>
+            <li>3-7-30 gün aralıklı tekrar sistemi</li>
+            <li>Bildirimlerle unutmayı önle</li>
+          </ul>
+        </section>
+
+        <!-- Günlük İstatistik -->
+        <div
+          class="bg-pink-100 dark:bg-pink-900 p-6 rounded-lg shadow text-pink-900 dark:text-pink-100 w-full"
+        >
+          <h2 class="text-xl font-semibold mb-2">📊 Günlük İstatistik</h2>
+          <ul class="space-y-2 text-sm">
+            <li>
+              🌱 Bugünkü tekrar: <strong><span id="statToday">0</span></strong>
+            </li>
+            <li>
+              ✅ Öğrenilen kelime:
+              <strong><span id="statLearned">0</span></strong>
+            </li>
+            <li>
+              📦 Kutu doluluğu:
+              <strong><span id="statProgress">%0</span></strong>
+            </li>
+          </ul>
+          <a
+            href="stats.html"
+            class="text-sm text-textMain underline hover:text-gray-600 mt-4 block"
+            >📊 Ayrıntılı istatistikleri görüntüle</a
+          >
         </div>
-        <div onclick="location.href='cards.html'" class="w-full p-4 rounded-xl bg-purple-500 hover:bg-purple-700 text-white transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1">
-          <h3 class="text-md font-semibold mb-1 flex items-center gap-2"><span class="text-2xl">📘</span> <div class="text-sm">Tüm Kartlarım</div></h3>
-          <p class="text-sm text-purple-100">Kelime kütüphaneni incele</p>
+      </section>
+
+      <!-- Sağ Sütun -->
+      <section
+        class="w-full lg:w-1/2 bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow flex flex-col justify-start"
+      >
+        <h2
+          class="text-2xl font-display font-bold text-textMain dark:text-white mb-6"
+        >
+          🚀 Başla ve Geliş!
+        </h2>
+        <div class="flex flex-col gap-4 w-full">
+          <div
+            onclick="location.href='review.html'"
+            class="w-full p-4 rounded-xl bg-orange-100 text-orange-800 hover:bg-orange-200 transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1"
+          >
+            <h3 class="text-md font-semibold mb-1 flex items-center gap-2">
+              <span class="text-2xl">🔁</span>
+              <div class="text-sm">Bugünkü Tekrar</div>
+            </h3>
+            <p class="text-sm text-orange-600">Günlük kelimelerini tekrar et</p>
+          </div>
+          <div
+            onclick="location.href='plans.html'"
+            class="w-full p-4 rounded-xl bg-green-100 text-green-800 hover:bg-green-200 transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1"
+          >
+            <h3 class="text-md font-semibold mb-1 flex items-center gap-2">
+              <span class="text-2xl">🗓️</span>
+              <div class="text-sm">Planlı Tekrarlar</div>
+            </h3>
+            <p class="text-sm text-green-600">3-7-30 gün tekrar planı</p>
+          </div>
+          <div
+            onclick="location.href='add-word.html'"
+            class="w-full p-4 rounded-xl bg-blue-100 text-blue-800 hover:bg-blue-200 transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1"
+          >
+            <h3 class="text-md font-semibold mb-1 flex items-center gap-2">
+              <span class="text-2xl">➕</span>
+              <div class="text-sm">Yeni Kelime Ekle</div>
+            </h3>
+            <p class="text-sm text-blue-600">Kendi kelimelerini oluştur</p>
+          </div>
+          <div
+            onclick="location.href='cards.html'"
+            class="w-full p-4 rounded-xl bg-purple-100 text-purple-800 hover:bg-purple-200 transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1"
+          >
+            <h3 class="text-md font-semibold mb-1 flex items-center gap-2">
+              <span class="text-2xl">📘</span>
+              <div class="text-sm">Tüm Kartlarım</div>
+            </h3>
+            <p class="text-sm text-purple-600">Kelime kütüphaneni incele</p>
+          </div>
+          <div
+            onclick="location.href='learned.html'"
+            class="w-full p-4 rounded-xl bg-yellow-100 text-yellow-800 hover:bg-yellow-200 transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1"
+          >
+            <h3 class="text-md font-semibold mb-1 flex items-center gap-2">
+              <span class="text-2xl">✅</span>
+              <div class="text-sm">Öğrenilenler</div>
+            </h3>
+            <p class="text-sm text-yellow-600">Tamamlanan kelimeler</p>
+          </div>
         </div>
-        <div onclick="location.href='learned.html'" class="w-full p-4 rounded-xl bg-yellow-500 hover:bg-yellow-700 text-white transition duration-300 ease-in-out shadow-lg hover:shadow-2xl hover:rotate-1">
-          <h3 class="text-md font-semibold mb-1 flex items-center gap-2"><span class="text-2xl">✅</span> <div class="text-sm">Öğrenilenler</div></h3>
-          <p class="text-sm text-yellow-100">Tamamlanan kelimeler</p>
-        </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
-  </main>
+    <!-- FOOTER -->
+    <footer class="p-4 text-center text-sm text-textMuted">
+      © 2025 FlipLang. Tüm hakları saklıdır.
+    </footer>
 
-  <!-- FOOTER -->
-  <footer class="p-4 text-center text-sm text-gray-500">
-    © 2025 FlipLang. Tüm hakları saklıdır.
-  </footer>
-
-  
-  <script type="module" src="js/app.js"></script>
-</body>
-
+    <script type="module" src="js/app.js"></script>
+  </body>
 </html>

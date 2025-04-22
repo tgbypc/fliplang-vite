@@ -32,51 +32,149 @@
   </head>
   <body class="min-h-screen font-sans bg-backgroundLight text-textLight dark:bg-backgroundDark dark:text-textDark">
     <!-- HEADER -->
-    <header class="p-4 bg-white dark:bg-gray-800 shadow flex justify-between items-center">
-      <a href="index.html" class="no-underline hover:no-underline">
-        <h1 class="text-xl font-bold text-primary">📚 FlipLang</h1>
-      </a>
-      <div class="flex items-center gap-4">
-      </div>
+    <header
+      class="bg-beige-50/90 dark:bg-gray-900/80 backdrop-blur-md shadow-sm sticky top-0 z-50"
+    >
+      <nav
+        class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between"
+      >
+        <a
+          href="index.html"
+          class="text-2xl font-display font-bold text-logo dark:text-white"
+          >📚 FlipLang</a
+        >
+
+        <!-- Mobil Menü Toggle -->
+        <button
+          id="menuToggle"
+          class="sm:hidden text-xl focus:outline-none text-logo dark:text-white"
+        >
+          ☰
+        </button>
+
+        <!-- Açılır Menü Kutusu -->
+        <div
+          id="mobileMenu"
+          class="sm:hidden hidden flex flex-col gap-3 absolute top-16 right-4 left-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 z-50 transition-all duration-300"
+        >
+          <a
+            href="review.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >📖 Tekrar</a
+          >
+          <a
+            href="plans.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >🗓️ Plan</a
+          >
+
+          <a
+          href="add-word.html"
+          class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+          >➕ Kelime Ekle</a
+        >
+          <a
+            href="cards.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >🧠 Kartlar</a
+          >
+       
+          <a
+            href="learned.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >✅ Öğrenilen</a
+          >
+          <a
+            href="stats.html"
+            class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+            >📊 İstatistik</a
+          >
+        </div>
+        <div class="hidden sm:flex gap-3 text-sm font-medium items-center">
+          <a
+            href="review.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Tekrar</a
+          >
+          <a
+            href="plans.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Plan</a
+          >
+          <a
+          href="add-word.html"
+          class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+          >Kelime Ekle</a
+          >
+     
+          <a
+            href="cards.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Kartlar</a
+          >
+       
+          <a
+            href="learned.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >Öğrenilenler</a
+          >
+          <a
+            href="stats.html"
+            class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+            >İstatistik</a
+          >
+        </div>
+
+        <button
+          id="themeToggle"
+          class="ml-4 px-2 py-1 text-sm bg-gradient-to-r from-indigo-500 to-yellow-400 hover:from-indigo-600 hover:to-yellow-500 text-white rounded shadow-sm transition"
+        >
+          🌗
+        </button>
+      </nav>
     </header>
 
     <main class="p-6 max-w-2xl mx-auto">
       <h2 class="text-2xl font-bold text-center text-primary mb-6">Kartlarım</h2>
 
       <!-- Tabs -->
-      <div class="flex justify-center gap-4 mb-6">
-        <button id="myCardsTab" class="px-4 py-2 bg-buttonYellow text-black dark:bg-buttonDarkYellow dark:text-black rounded-full shadow hover:scale-105 transition-all duration-300">🗂 Benim Kartlarım</button>
-        <button id="apiCardsTab" class="px-4 py-2 bg-buttonBlue text-white dark:bg-buttonDarkBlue dark:text-white rounded-full shadow hover:scale-105 transition-all duration-300">📦 Hazır Setler</button>
+      <div class="flex justify-center gap-4 mb-6" role="tablist" aria-label="Kart Görüntüleme Sekmeleri">
+        <button id="myCardsTab" role="tab" aria-selected="true" class="px-4 py-2 bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 rounded-full shadow hover:bg-purple-200 dark:hover:bg-purple-500 transition-all duration-300">
+          🗂 Benim Kartlarım
+        </button>
+        <button id="apiCardsTab" role="tab" aria-selected="false" class="px-4 py-2 bg-green-100 text-green-800 dark:bg-green-300 dark:text-green-900 rounded-full shadow hover:bg-green-200 dark:hover:bg-green-500 transition-all duration-300">
+          📦 Hazır Setler
+        </button>
       </div>
 
       <!-- Benim Kartlarım -->
 <section id="myCardsSection" class="flex justify-center">
-  <div id="myCardsWrapper" class="flex flex-col gap-4 w-full max-h-[600px] overflow-y-auto px-2 bg-cardLight dark:bg-cardLight text-textLight dark:text-textDark shadow-md rounded-xl ring-1 ring-gray-200 dark:ring-gray-700">
+  <div id="myCardsWrapper" class="flex flex-col gap-4 w-full max-h-[600px] overflow-y-auto px-2 bg-cardLight dark:bg-white text-textLight dark:text-gray-900 shadow-md rounded-xl ring-1 ring-gray-200 dark:ring-gray-700">
     <!-- JS ile kartlar buraya eklenecek -->
   </div>
 </section>
       <!-- Hazır Setler (Accordion) -->
       <section id="apiCardsSection" class="hidden transition-all flex flex-col gap-4">
-        <div class="rounded-lg overflow-hidden shadow bg-cardLight dark:bg-cardLight">
+        <section class="rounded-lg overflow-hidden shadow bg-cardLight dark:bg-white">
           <button class="w-full text-left px-6 py-3 bg-indigo-100 text-indigo-700 font-semibold toggle-set hover:bg-indigo-200 transition dark:bg-indigo-700 dark:text-white dark:hover:bg-indigo-600" data-target="setGreeting">👋 Selamlaşma</button>
-          <div id="setGreeting" class="hidden px-6 py-4 flex flex-col gap-3 bg-cardLight dark:bg-cardLight">
+          <div id="setGreeting" class="hidden px-6 py-4 flex flex-col gap-3 bg-cardLight dark:bg-white">
             <!-- JS kartlar -->
           </div>
-        </div>
+        </section>
 
-        <div class="rounded-lg overflow-hidden shadow bg-cardLight dark:bg-cardLight">
+        <section class="rounded-lg overflow-hidden shadow bg-cardLight dark:bg-white">
           <button class="w-full text-left px-6 py-3 bg-indigo-100 text-indigo-700 font-semibold toggle-set hover:bg-indigo-200 transition dark:bg-indigo-700 dark:text-white dark:hover:bg-indigo-600" data-target="setDaily">🏠 Günlük Hayat</button>
-          <div id="setDaily" class="hidden px-6 py-4 flex flex-col gap-3 bg-cardLight dark:bg-cardLight">
+          <div id="setDaily" class="hidden px-6 py-4 flex flex-col gap-3 bg-cardLight dark:bg-white">
             <!-- JS kartlar -->
           </div>
-        </div>
+        </section>
 
-        <div class="rounded-lg overflow-hidden shadow bg-cardLight dark:bg-cardLight">
-          <button class="w-full text-left px-6 py-3 bg-indigo-100 text-indigo-700 font-semibold toggle-set hover:bg-indigo-200 transition dark:bg-indigo-700 dark:text-white dark:hover:bg-white-600" data-target="apiPhrasesWrapper">💬 Hazır Cümleler</button>
-          <div id="apiPhrasesWrapper" class="hidden px-6 py-4 flex flex-col gap-3 bg-cardLight dark:bg-cardLight">
+        <section class="rounded-lg overflow-hidden shadow bg-cardLight dark:bg-white">
+          <button class="w-full text-left px-6 py-3 bg-indigo-100 text-indigo-700 font-semibold toggle-set hover:bg-indigo-200 transition dark:bg-indigo-700 dark:text-white dark:hover:bg-indigo-600" data-target="apiPhrasesWrapper">💬 Hazır Cümleler</button>
+          <div id="apiPhrasesWrapper" class="hidden px-6 py-4 flex flex-col gap-3 bg-cardLight dark:bg-white">
             <!-- JS kartlar -->
           </div>
-        </div>
+        </section>
       </section>
     </main>
 

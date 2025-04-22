@@ -1,3 +1,4 @@
+// Metni belirtilen diller arasında çevirir (LibreTranslate API kullanılarak)
 export async function translateWord(text, source = "en", target = "tr") {
   try {
     const response = await fetch("https://libretranslate.de/translate", {

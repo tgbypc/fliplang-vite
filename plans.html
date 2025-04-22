@@ -9,48 +9,149 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: "class", // <== Bu şart!
+      darkMode: "class",
       theme: {
         extend: {
           colors: {
-            primary: "#4F46E5",
-            accent: "#F59E0B",
+            primary: "#A78BFA",       // Mor tonu (başlıklar, butonlar)
+            accent: "#FDE68A",        // Sarı tonu (vurgular, ikonlar)
+            surface: "#F9FAFB",       // Arka planlarda kullanılır
+            textMain: "#374151",      // Ana yazı rengi
+            textMuted: "#6B7280",     // Açıklama metinleri
+            logo: "#6366F1"           // FlipLang logosu için mavi-mor tonu
           },
-        },
-      },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            display: ["Poppins", "sans-serif"]
+          }
+        }
+      }
     };
- 
   </script>
 </head>
 <body class="min-h-screen font-sans text-gray-900 bg-white dark:bg-gray-900 dark:text-gray-100">
-  <!-- Header -->
-  <header class="p-4 bg-white dark:bg-gray-800 shadow flex justify-between items-center">
-    <a href="index.html" class="no-underline hover:no-underline">
-      <h1 class="text-xl font-bold text-primary">📚 FlipLang</h1>
-    </a>
-    <div class="flex items-center gap-4">
+  <!-- HEADER -->
+  <header
+  class="bg-beige-50/90 dark:bg-gray-900/80 backdrop-blur-md shadow-sm sticky top-0 z-50"
+>
+  <nav
+    class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between"
+  >
+    <a
+      href="index.html"
+      class="text-2xl font-display font-bold text-logo dark:text-white"
+      >📚 FlipLang</a
+    >
+
+    <!-- Mobil Menü Toggle -->
+    <button
+      id="menuToggle"
+      class="sm:hidden text-xl focus:outline-none text-logo dark:text-white"
+    >
+      ☰
+    </button>
+
+    <!-- Açılır Menü Kutusu -->
+    <div
+      id="mobileMenu"
+      class="sm:hidden hidden flex flex-col gap-3 absolute top-16 right-4 left-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 z-50 transition-all duration-300"
+    >
+      <a
+        href="review.html"
+        class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+        >📖 Tekrar</a
+      >
+      <a
+        href="plans.html"
+        class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+        >🗓️ Plan</a
+      >
+
+      <a
+      href="add-word.html"
+      class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+      >➕ Kelime Ekle</a
+    >
+      <a
+        href="cards.html"
+        class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+        >🧠 Kartlar</a
+      >
+   
+      <a
+        href="learned.html"
+        class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+        >✅ Öğrenilen</a
+      >
+      <a
+        href="stats.html"
+        class="bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 px-4 py-2 rounded-lg shadow-sm hover:bg-purple-200 dark:hover:bg-purple-400 transition"
+        >📊 İstatistik</a
+      >
     </div>
-  </header>
+    <div class="hidden sm:flex gap-3 text-sm font-medium items-center">
+      <a
+        href="review.html"
+        class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+        >Tekrar</a
+      >
+      <a
+        href="plans.html"
+        class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+        >Plan</a
+      >
+      <a
+      href="add-word.html"
+      class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+      >Kelime Ekle</a
+      >
+ 
+      <a
+        href="cards.html"
+        class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+        >Kartlar</a
+      >
+   
+      <a
+        href="learned.html"
+        class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+        >Öğrenilenler</a
+      >
+      <a
+        href="stats.html"
+        class="px-4 py-2 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 hover:bg-purple-200 dark:hover:bg-purple-400 transition-all"
+        >İstatistik</a
+      >
+    </div>
+
+    <button
+      id="themeToggle"
+      class="ml-4 px-2 py-1 text-sm bg-gradient-to-r from-indigo-500 to-yellow-400 hover:from-indigo-600 hover:to-yellow-500 text-white rounded shadow-sm transition"
+    >
+      🌗
+    </button>
+  </nav>
+</header>
 
   <!-- Main -->
   <main class="flex-1 px-6 py-10 flex flex-col items-center justify-start gap-8 max-w-3xl mx-auto">
     <!-- Başlık -->
-    <div class="text-center">
-      <h2 class="text-4xl font-extrabold text-primary dark:text-indigo-300 mb-2">📚 Planlı Tekrarlar</h2>
+    <section aria-labelledby="planned-repeats-heading" class="text-center">
+      <h2 id="planned-repeats-heading" class="text-4xl font-extrabold text-primary dark:text-indigo-300 mb-2">📚 Planlı Tekrarlar</h2>
       <p class="text-gray-600 dark:text-gray-300 text-sm">
         Leitner sistemine göre zamanı gelen kartları tekrar et. Hangi aralıkta tekrar yapmak istiyorsan seç!
       </p>
-    </div>
+    </section>
 
     <!-- Kategori Butonları -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
-      <button value="3" class="day-btn bg-orange-400 hover:bg-orange-500 text-white font-semibold py-4 rounded-xl shadow transition">
+      <button value="3" class="day-btn bg-orange-100 text-orange-800 dark:bg-orange-300 dark:text-orange-900 font-semibold py-4 rounded-xl shadow transition">
         📅 3 Günlük
       </button>
-      <button value="7" class="day-btn bg-green-500 hover:bg-green-600 text-white font-semibold py-4 rounded-xl shadow transition">
+      <button value="7" class="day-btn bg-green-100 text-green-800 dark:bg-green-300 dark:text-green-900 font-semibold py-4 rounded-xl shadow transition">
         🗓️ 7 Günlük
       </button>
-      <button value="30" class="day-btn bg-purple-500 hover:bg-purple-600 text-white font-semibold py-4 rounded-xl shadow transition">
+      <button value="30" class="day-btn bg-purple-100 text-purple-800 dark:bg-purple-300 dark:text-purple-900 font-semibold py-4 rounded-xl shadow transition">
         📆 30 Günlük
       </button>
     </div>
@@ -75,7 +176,7 @@
     </div>
 
     <!-- Bilgi Mesajı -->
-    <div id="infoMessage" class="text-center text-sm text-blue-600 dark:text-blue-400 mt-4"></div>
+    <div id="infoMessage" class="text-center text-sm bg-orange-100 text-orange-800 dark:bg-orange-300 dark:text-orange-900 p-4 rounded-xl shadow mt-4 max-w-md mx-auto hidden"></div>
   </main>
 
   <footer class="p-4 text-center text-sm text-gray-500 dark:text-gray-400">

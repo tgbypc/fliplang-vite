@@ -1,4 +1,48 @@
 import { cards as defaultCards } from './data.js';
+import { getNextReviewDate, getBoxLabel } from './leitner.js';
+
+function getTodayDate() {
+  return new Date().toISOString().split("T")[0];
+}
+
+function getStoredCards() {
+  return JSON.parse(localStorage.getItem("cards")) || [];
+}
+
+function updateCardInStorage(card) {
+  const allCards = getStoredCards();
+  const indexInStorage = allCards.findIndex(c => c.id === card.id);
+  if (indexInStorage !== -1) {
+    allCards[indexInStorage] = card;
+    localStorage.setItem("cards", JSON.stringify(allCards));
+  }
+}
+
+function renderCardHTML(card) {
+  return `
+    <div class="bg-white dark:bg-white text-gray-800 p-6 rounded-lg shadow-md">
+      <p class="font-bold text-2xl mb-6 text-center">${card.front}</p>
+      <div class="flex justify-center gap-4">
+        <button class="know-btn bg-primary text-white hover:bg-primary/80 font-semibold px-4 py-2 rounded-lg shadow transition">
+          Biliyorum
+        </button>
+        <button class="dont-know-btn bg-rose-400 text-white hover:bg-rose-500 font-semibold px-4 py-2 rounded-lg shadow transition">
+          Bilmiyorum
+        </button>
+      </div>
+      <div class="back-section hidden mt-6 text-center">
+        <p class="text-lg font-semibold">${card.back}</p>
+        <p class="text-sm mt-2 text-gray-500 dark:text-gray-300">Anlamını gördün, şimdi tekrar et!</p>
+        <button class="next-btn mt-4 bg-blue-400 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg shadow transition flex items-center justify-center gap-2 mx-auto">
+          Devam Et
+          <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M10.293 15.707a1 1 0 001.414 0l5-5a1 1 0 000-1.414l-5-5a1 1 0 10-1.414 1.414L13.586 9H4a1 1 0 100 2h9.586l-3.293 3.293a1 1 0 000 1.414z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  `;
+}
 
 if (!localStorage.getItem("cards")) {
   localStorage.setItem("cards", JSON.stringify(defaultCards));
@@ -44,9 +88,9 @@ export function loadPlannedReview(day) {
   cardContainer.classList.remove("hidden");
   cardContainer.classList.remove("opacity-0");
 
-  const today = new Date();
+  const today = new Date(getTodayDate());
 
-  const allCards = JSON.parse(localStorage.getItem("cards")) || [];
+  const allCards = getStoredCards();
   todaysCards = allCards.filter(
     (card) => card.nextReview === today.toISOString().split("T")[0] && card.box === getBoxNumber(day)
   );
@@ -54,9 +98,12 @@ export function loadPlannedReview(day) {
 
   if (todaysCards.length === 0) {
     infoMessage.textContent = "Seçilen aralıkta tekrar edilecek kart bulunamadı.";
+    infoMessage.classList.remove("hidden");
     cardContainer.classList.add("hidden");
     progressSection.classList.add("hidden");
     return;
+  } else {
+    infoMessage.classList.add("hidden");
   }
 
   showCard(0);
@@ -74,7 +121,7 @@ function showCard(index) {
   cardContainer.innerHTML = "";
 
   const cardEl = document.createElement("div");
-  cardEl.className = "w-full max-w-md bg-gradient-to-r from-fuchsia-300 to-pink-400 p-6 rounded-xl shadow-xl text-white text-center mx-auto";
+  cardEl.className = "w-full max-w-md bg-purple-100 dark:bg-purple-300 text-gray-800 dark:text-gray-900 p-6 rounded-xl shadow-xl text-center mx-auto transition-all";
   
   cardEl.classList.add("opacity-0");
   setTimeout(() => {
@@ -82,27 +129,7 @@ function showCard(index) {
     cardEl.classList.add("transition-opacity", "duration-700", "opacity-100");
   }, 10);
 
-  cardEl.innerHTML = `
-    <p class="font-bold text-2xl mb-6">${card.front}</p>
-    <div class="flex justify-center gap-4">
-      <button class="know-btn bg-emerald-300 hover:bg-emerald-400 text-gray-900 font-semibold px-4 py-2 rounded-lg shadow transition">
-        Biliyorum
-      </button>
-      <button class="dont-know-btn bg-rose-300 hover:bg-rose-400 text-gray-900 font-semibold px-4 py-2 rounded-lg shadow transition">
-        Bilmiyorum
-      </button>
-    </div>
-    <div class="back-section hidden mt-6">
-      <p class="text-lg font-semibold">${card.back}</p>
-      <p class="text-sm mt-2 text-gray-200">Anlamını gördün, şimdi tekrar et!</p>
-      <button class="next-btn mt-4 bg-blue-400 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg shadow transition flex items-center justify-center gap-2 mx-auto">
-        Devam Et
-        <svg class="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-          <path d="M10.293 15.707a1 1 0 001.414 0l5-5a1 1 0 000-1.414l-5-5a1 1 0 10-1.414 1.414L13.586 9H4a1 1 0 100 2h9.586l-3.293 3.293a1 1 0 000 1.414z"/>
-        </svg>
-      </button>
-    </div>
-  `;
+  cardEl.innerHTML = renderCardHTML(card);
 
   const knowBtn = cardEl.querySelector(".know-btn");
   const dontKnowBtn = cardEl.querySelector(".dont-know-btn");
@@ -114,31 +141,20 @@ function showCard(index) {
 
     if (card.box === 1) {
       card.box = 2;
-      const next = new Date();
-      next.setDate(next.getDate() + 3);
-      card.nextReview = next.toISOString().split("T")[0];
+      card.nextReview = getNextReviewDate(2);
     } else if (card.box === 2) {
       card.box = 3;
-      const next = new Date();
-      next.setDate(next.getDate() + 7);
-      card.nextReview = next.toISOString().split("T")[0];
+      card.nextReview = getNextReviewDate(3);
     } else if (card.box === 3) {
       card.box = 4;
-      const next = new Date();
-      next.setDate(next.getDate() + 30);
-      card.nextReview = next.toISOString().split("T")[0];
+      card.nextReview = getNextReviewDate(4);
     } else if (card.box === 4) {
       card.box = 5; // Öğrenilen olarak işaretle
       card.nextReview = null;
     }
 
     // Güncellenen kartı kaydet
-    const allCards = JSON.parse(localStorage.getItem("cards")) || [];
-    const indexInStorage = allCards.findIndex(c => c.id === card.id);
-    if (indexInStorage !== -1) {
-      allCards[indexInStorage] = card;
-      localStorage.setItem("cards", JSON.stringify(allCards));
-    }
+    updateCardInStorage(card);
 
     showCard(index + 1);
   });
@@ -147,16 +163,9 @@ function showCard(index) {
     backSection.classList.remove("hidden");
     // Leitner sistemine göre kutu 1'e düşür ve yarın tekrar et
     card.box = 1;
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    card.nextReview = tomorrow.toISOString().split("T")[0];
+    card.nextReview = getNextReviewDate(1);
 
-    const allCards = JSON.parse(localStorage.getItem("cards")) || [];
-    const indexInStorage = allCards.findIndex(c => c.id === card.id);
-    if (indexInStorage !== -1) {
-      allCards[indexInStorage] = card;
-      localStorage.setItem("cards", JSON.stringify(allCards));
-    }
+    updateCardInStorage(card);
 
     dontKnowBtn.disabled = true;
     knowBtn.disabled = true;

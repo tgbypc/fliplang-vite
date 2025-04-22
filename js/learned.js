@@ -1,7 +1,25 @@
+import { getBoxLabel } from "./leitner.js";
 const { jsPDF } = window.jspdf;
 
+function getStoredCards() {
+  return JSON.parse(localStorage.getItem("cards")) || [];
+}
+
+function createLearnedCard(card) {
+  const div = document.createElement("div");
+  div.className = "flex justify-between items-center bg-white dark:bg-white text-gray-900 dark:text-gray-800 p-4 rounded-md shadow border border-gray-200 dark:border-gray-300 transition-all duration-300 hover:shadow-md";
+
+  div.innerHTML = `
+    <div>
+      <h3 class="text-base font-semibold text-primary">${card.front} ➜ ${card.back}</h3>
+      <p class="text-xs text-gray-500 mt-1">📦 ${getBoxLabel(card.box)} | 📅 Öğrenildi: ${card.reviewedDate || "-"}</p>
+    </div>
+  `;
+  return div;
+}
+
 // LocalStorage'dan kartları al
-const allCards = JSON.parse(localStorage.getItem("cards")) || [];
+const allCards = getStoredCards();
 const learnedCards = allCards.filter(card => card.box === 5);
 
 const container = document.getElementById("learnedContainer");
@@ -17,19 +35,12 @@ function renderLearnedCards() {
   }
 
   learnedCards.forEach(card => {
-    const cardDiv = document.createElement("div");
-    cardDiv.className = "flex justify-between items-center bg-white dark:bg-white text-gray-900 dark:text-gray-900 p-4 rounded-md shadow border border-gray-200";
-    cardDiv.innerHTML = `
-      <div>
-        <h3 class="text-base font-semibold text-primary">${card.front} ➜ ${card.back}</h3>
-        <p class="text-xs text-gray-500 mt-1">📅 Öğrenildi: ${card.reviewedDate || "-"}</p>
-      </div>
-    `;
-    container.appendChild(cardDiv);
+    container.appendChild(createLearnedCard(card));
   });
 
   const percent = Math.round((learnedCards.length / allCards.length) * 100);
   progressBar.style.width = `${percent}%`;
+  progressBar.setAttribute("aria-valuenow", percent);
   progressText.textContent = `${learnedCards.length}/${allCards.length} kelime öğrenildi`;
 }
 
