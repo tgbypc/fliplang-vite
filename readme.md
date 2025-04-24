@@ -31,8 +31,7 @@ This project was part of my journey to learn software development. It's my most 
 
 ## 📸 Screenshots
 
-![Dashboard](./assets/screenshots/dashboard.png)
-![Review](./assets/screenshots/review.png)
+![FlipLang Screenshot](https://github.com/tgbypc/fliplang-vite/tree/main/assets/images)
 
 ---
 
